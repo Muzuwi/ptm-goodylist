@@ -10,5 +10,5 @@
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
     app:layoutManager="LinearLayoutManager"
-    tools:context=".ui.RecipeListFragment"
+    tools:context=".ui.lists.RecipeListFragment"
     tools:listitem="@layout/fragment_recipe_list_item" />
