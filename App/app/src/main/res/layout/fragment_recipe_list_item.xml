@@ -1,21 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/recipe_item_container"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:background="#FFFFFF"
+    android:padding="16dp">
 
     <TextView
-        android:id="@+id/item_number"
+        android:id="@+id/ListItemName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        android:textAppearance="?attr/textAppearanceListItem" />
+        android:layout_marginStart="8dp"
+        android:text="Recipe #1"
+        android:textAppearance="?attr/textAppearanceListItem"
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@+id/ListItemIcon"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/content"
+        android:id="@+id/ListItemUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        android:textAppearance="?attr/textAppearanceListItem" />
-</LinearLayout>
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="dummyUser"
+        android:textAppearance="?attr/textAppearanceListItem"
+        app:layout_constraintStart_toEndOf="@+id/ListItemIcon"
+        app:layout_constraintTop_toBottomOf="@+id/ListItemName" />
+
+    <ImageView
+        android:id="@+id/ListItemIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#DDDADA"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/icon_breakfest" />
+
+    <TextView
+        android:id="@+id/ListItemDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="01.01.1970"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
