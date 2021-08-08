@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoodyAPI", "GoodieREST/GoodyAPI.csproj", "{593D9082-5458-48B3-B5F1-7D984C4D3E03}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibGoodie", "LibGoodie\LibGoodie.csproj", "{BB793B14-7E74-4363-8520-BBDAEB193B82}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{593D9082-5458-48B3-B5F1-7D984C4D3E03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{593D9082-5458-48B3-B5F1-7D984C4D3E03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{593D9082-5458-48B3-B5F1-7D984C4D3E03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{593D9082-5458-48B3-B5F1-7D984C4D3E03}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB793B14-7E74-4363-8520-BBDAEB193B82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB793B14-7E74-4363-8520-BBDAEB193B82}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB793B14-7E74-4363-8520-BBDAEB193B82}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB793B14-7E74-4363-8520-BBDAEB193B82}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
