@@ -3,57 +3,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/nav_profile">
+    app:startDestination="@+id/nav_home">
 
     <fragment
-        android:id="@+id/nav_profile"
-        android:name="com.example.ptm_goodies_klient.ui.profile.ProfileFragment"
-        android:label="@string/mainLabel_profile"
-        tools:layout="@layout/fragment_profile" />
+        android:id="@+id/nav_home"
+        android:name="com.teambear.goodielist.ui.home.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/nav_recipes"
-        android:name="com.example.ptm_goodies_klient.ui.recipes.RecipeFragment"
-        android:label="@string/mainLabel_recipes"
-        tools:layout="@layout/fragment_recipe" >
-        <action
-            android:id="@+id/action_nav_recipes_to_displayRecipeFragment"
-            app:destination="@id/displayRecipeFragment" />
-        <action
-            android:id="@+id/action_nav_recipes_to_addRecipeFragment"
-            app:destination="@id/addRecipeFragment" />
-    </fragment>
+        android:id="@+id/nav_gallery"
+        android:name="com.teambear.goodielist.ui.gallery.GalleryFragment"
+        android:label="@string/menu_gallery"
+        tools:layout="@layout/fragment_gallery" />
 
     <fragment
-        android:id="@+id/nav_browse"
-        android:name="com.example.ptm_goodies_klient.ui.browse.BrowseFragment"
-        android:label="@string/mainLabel_browse"
-        tools:layout="@layout/fragment_browse" />
-    <fragment
-        android:id="@+id/addRecipeFragment"
-        android:name="com.example.ptm_goodies_klient.ui.recipes.AddRecipeFragment"
-        android:label="fragment_add_recipe"
-        tools:layout="@layout/fragment_add_recipe" />
-    <fragment
-        android:id="@+id/displayRecipeFragment"
-        android:name="com.example.ptm_goodies_klient.ui.recipes.DisplayRecipeFragment"
-        android:label="fragment_display_recipe"
-        tools:layout="@layout/fragment_display_recipe" >
-        <argument
-            android:name="name"
-            app:argType="string"
-            android:defaultValue="No named Recipe" />
-        <argument
-            android:name="category"
-            app:argType="string"
-            android:defaultValue="No Category" />
-        <argument
-            android:name="ingredients"
-            app:argType="string"
-            android:defaultValue="No ingredients specifed" />
-        <argument
-            android:name="description"
-            app:argType="string"
-            android:defaultValue="No description" />
-    </fragment>
+        android:id="@+id/nav_slideshow"
+        android:name="com.teambear.goodielist.ui.slideshow.SlideshowFragment"
+        android:label="@string/menu_slideshow"
+        tools:layout="@layout/fragment_slideshow" />
+
 </navigation>
