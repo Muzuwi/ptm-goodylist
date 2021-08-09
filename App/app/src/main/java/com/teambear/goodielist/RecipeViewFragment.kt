@@ -6,8 +6,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.navigation.fragment.navArgs
 import com.teambear.goodielist.R
+import com.teambear.goodielist.models.RecipeCategory
+import com.teambear.goodielist.storage.LocalRecipes
+import java.text.SimpleDateFormat
 
 class RecipeViewFragment : Fragment() {
     val args: RecipeViewFragmentArgs by navArgs()
@@ -26,8 +31,25 @@ class RecipeViewFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val recipeID = args.id.uuid;
+        val recipe = LocalRecipes.GetRecipeByUUID(args.id.uuid) ?: return
 
+        view.findViewById<TextView>(R.id.DetailsName).text = recipe.name
+        view.findViewById<TextView>(R.id.DetailsAuthor).text = recipe.username
+        view.findViewById<TextView>(R.id.DetailsCategory).text = recipe.category.toString()
+        view.findViewById<TextView>(R.id.DetailsDescription).text = recipe.description
+        view.findViewById<TextView>(R.id.DetailsIngredients).text = recipe.ingredients.toString()
+        view.findViewById<TextView>(R.id.DetailsSteps).text = recipe.steps.toString()
+
+        val simpleDateFormat = SimpleDateFormat("dd-MM-yyyy")
+        view.findViewById<TextView>(R.id.DetailsCreated).text = simpleDateFormat.format(recipe.created)
+
+        val icon = when(recipe.category){
+            RecipeCategory.BREAKFAST -> R.drawable.icon_breakfest
+            RecipeCategory.LUNCH -> R.drawable.icon_lunch
+            RecipeCategory.SUPPER -> R.drawable.icon_supper
+            RecipeCategory.DESSERT -> R.drawable.icon_dessert
+        }
+        view.findViewById<ImageView>(R.id.DetailsIcon).setImageResource(icon)
     }
 
 }
