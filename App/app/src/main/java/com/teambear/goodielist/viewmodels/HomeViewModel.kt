@@ -1,4 +1,4 @@
-package com.teambear.goodielist.ui.home
+package com.teambear.goodielist.viewmodels
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

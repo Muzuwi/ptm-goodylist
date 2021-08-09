@@ -1,15 +1,13 @@
-package com.teambear.goodielist.ui.home
+package com.teambear.goodielist
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.teambear.goodielist.R
 import com.teambear.goodielist.databinding.FragmentHomeBinding
+import com.teambear.goodielist.viewmodels.HomeViewModel
 
 class HomeFragment : Fragment() {
 
