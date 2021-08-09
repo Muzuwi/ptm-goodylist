@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/recipe_editor"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FragmentRecipeEdit">
+
+    <EditText
+        android:id="@+id/EditName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        android:text="Recipe name"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/EditIcon"
+        app:layout_constraintTop_toTopOf="@+id/EditIcon" />
+
+    <ListView
+        android:id="@+id/EditIngredientsList"
+        android:layout_width="0dp"
+        android:layout_height="144dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/EditNewIngredient" />
+
+    <ListView
+        android:id="@+id/EditStepList"
+        android:layout_width="0dp"
+        android:layout_height="144dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/EditNewStep" />
+
+    <Spinner
+        android:id="@+id/EditCategory"
+        android:layout_width="166dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="4dp"
+        android:entries="@array/Categories"
+        app:layout_constraintStart_toStartOf="@+id/EditName"
+        app:layout_constraintTop_toBottomOf="@+id/EditName" />
+
+    <ImageView
+        android:id="@+id/EditIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/icon_breakfest"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/EditSaveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="Save"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <EditText
+        android:id="@+id/EditDescription"
+        android:layout_width="0dp"
+        android:layout_height="96dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:ems="10"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        android:text="Description"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/EditCategory" />
+
+    <EditText
+        android:id="@+id/EditNewIngredient"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="New Ingredient"
+        app:layout_constraintBottom_toBottomOf="@+id/EditIngredientAddButton"
+        app:layout_constraintEnd_toStartOf="@+id/EditIngredientAddButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/EditIngredientAddButton" />
+
+    <EditText
+        android:id="@+id/EditNewStep"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="New Step"
+        app:layout_constraintBottom_toBottomOf="@+id/EditStepAddButton"
+        app:layout_constraintEnd_toStartOf="@+id/EditStepAddButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/EditStepAddButton" />
+
+    <ImageButton
+        android:id="@+id/EditIngredientAddButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:contentDescription="Add Ingredient"
+        android:src="@android:drawable/ic_menu_add"
+        app:layout_constraintEnd_toEndOf="@+id/EditDescription"
+        app:layout_constraintTop_toBottomOf="@+id/EditDescription" />
+
+    <ImageButton
+        android:id="@+id/EditStepAddButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:contentDescription="Add Step"
+        android:src="@android:drawable/ic_menu_add"
+        app:layout_constraintEnd_toEndOf="@+id/EditIngredientsList"
+        app:layout_constraintTop_toBottomOf="@+id/EditIngredientsList" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

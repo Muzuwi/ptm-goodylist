@@ -13,6 +13,9 @@
         <action
             android:id="@+id/recipeListFragment_to_recipeViewFragment"
             app:destination="@id/recipeViewFragment" />
+        <action
+            android:id="@+id/recipeListFragment_to_fragmentRecipeEdit"
+            app:destination="@id/fragmentRecipeEdit" />
     </fragment>
     <fragment
         android:id="@+id/recipeViewFragment"
@@ -23,5 +26,10 @@
             android:name="id"
             app:argType="android.os.ParcelUuid" />
     </fragment>
+    <fragment
+        android:id="@+id/fragmentRecipeEdit"
+        android:name="com.teambear.goodielist.FragmentRecipeEdit"
+        android:label="fragment_recipe_edit"
+        tools:layout="@layout/fragment_recipe_edit" />
 
 </navigation>

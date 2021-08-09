@@ -1,7 +1,9 @@
 package com.teambear.goodielist
 
 import android.os.Bundle
+import android.os.ParcelUuid
 import android.view.Menu
+import android.view.View
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -10,6 +12,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.fragment.findNavController
 import com.teambear.goodielist.databinding.MainActivityBinding
 import com.teambear.goodielist.storage.LocalRecipes
 
@@ -51,4 +54,10 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
+
+    fun AddRecipeButtonClicked(view: View) {
+        val nav = findNavController(R.id.nav_host_fragment_content_main)
+        nav.navigate(R.id.recipeListFragment_to_fragmentRecipeEdit);
+    }
+
 }
