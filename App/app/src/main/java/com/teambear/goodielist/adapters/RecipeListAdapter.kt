@@ -1,5 +1,6 @@
 package com.teambear.goodielist.adapters
 
+import android.graphics.Color
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -64,6 +65,15 @@ class RecipeListAdapter(
                 RecipeCategory.DESSERT -> R.drawable.icon_dessert
             }
             iconView.setImageResource(icon)
+
+            val tileColorString = when(recipe.category){
+                RecipeCategory.BREAKFAST -> "#90CAF9"
+                RecipeCategory.LUNCH -> "#4CAF50"
+                RecipeCategory.SUPPER -> "#FFB74D"
+                RecipeCategory.DESSERT -> "#E57373"
+            }
+            itemContainer.setBackgroundColor(Color.parseColor(tileColorString))
+
         }
 
         fun BindListener(recipeClickListener: IRecipeClickListener, position: Int) {

@@ -5,7 +5,11 @@
     android:id="@+id/recipe_item_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#FFFFFF"
+    android:layout_marginLeft="10dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginBottom="5dp"
+    android:background="#80C6C6C6"
     android:padding="16dp">
 
     <TextView
@@ -34,7 +38,7 @@
         android:id="@+id/ListItemIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#DDDADA"
+        android:background="#80FFFFFF"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/icon_breakfest" />

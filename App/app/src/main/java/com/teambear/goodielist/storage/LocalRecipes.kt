@@ -27,9 +27,11 @@ object LocalRecipes : IUserRecipeWorker {
     private fun CreateDummyEntries() {
         var recipes = listOf(
             Recipe(UUID.randomUUID(), "test", Calendar.getInstance().getTime(),"Costam", RecipeCategory.BREAKFAST, listOf(), listOf(), "Pyszne śniadanie", listOf()),
-            Recipe(UUID.randomUUID(), "test",  Calendar.getInstance().getTime(),"Obiadek", RecipeCategory.LUNCH, listOf(), listOf(), "Pyszny obiadek", listOf()),
+            Recipe(UUID.randomUUID(), "test", Calendar.getInstance().getTime(),"Obiadek", RecipeCategory.LUNCH, listOf(), listOf(), "Pyszny obiadek", listOf()),
+            Recipe(UUID.randomUUID(), "test", Calendar.getInstance().getTime(),"Wieczorne klimaty", RecipeCategory.SUPPER, listOf(), listOf(), "Cos na zapchanie", listOf()),
+            Recipe(UUID.randomUUID(), "test", Calendar.getInstance().getTime(),"Deserowy czerwiec", RecipeCategory.DESSERT, listOf(), listOf(), "woooo! yeah!", listOf()),
+            Recipe(UUID.randomUUID(), "test", Calendar.getInstance().getTime(),"Shokugeki no Soma", RecipeCategory.LUNCH, listOf(), listOf(), "oppai", listOf()),
         )
-
         for (recipe in recipes) {
             System.out.println("Dodawanie przepisu " + recipe.id.toString())
             val json = Json.encodeToString(recipe)

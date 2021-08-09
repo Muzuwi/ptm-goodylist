@@ -1,6 +1,7 @@
 package com.teambear.goodielist
 
 import android.os.Bundle
+import android.os.ParcelUuid
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -51,7 +52,9 @@ class RecipeListFragment : Fragment(), IRecipeClickListener {
     override fun OnRecipeClick(recipe: Recipe) {
         System.out.println("Clicked on recipe id=" + recipe.id.toString());
         val nav = findNavController()
-        nav.navigate(R.id.action_nav_home_to_recipeViewFragment2);
+        val recipeListFragmentToRecipeViewFragment =
+            HomeFragmentDirections.recipeListFragmentToRecipeViewFragment(ParcelUuid(recipe.id))
+        nav.navigate(recipeListFragmentToRecipeViewFragment);
     }
 
     override fun OnRecipeLongClick(recipe: Recipe) {
