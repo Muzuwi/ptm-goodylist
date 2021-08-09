@@ -12,4 +12,6 @@ interface IUserRecipeWorker {
 
     fun UpdateRecipe(id: UUID, newRecipe: Recipe): Boolean
 
+    fun InsertRecipe(newRecipe: Recipe): Boolean
+
 }

@@ -12,8 +12,8 @@ import androidx.navigation.fragment.findNavController
 import com.teambear.goodielist.interfaces.IRecipeClickListener
 import com.teambear.goodielist.adapters.RecipeListAdapter
 import com.teambear.goodielist.models.Recipe
+import com.teambear.goodielist.storage.LocalRecipes
 import com.teambear.goodielist.workers.DummyRecipeListViewer
-import com.teambear.goodielist.workers.DummyUserRecipeWorker
 
 /**
  * A fragment representing a list of Items.
@@ -21,7 +21,6 @@ import com.teambear.goodielist.workers.DummyUserRecipeWorker
 class RecipeListFragment : Fragment(), IRecipeClickListener {
 
     private var columnCount = 1
-    private val dummyUserRecipeWorker = DummyUserRecipeWorker()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,7 +41,7 @@ class RecipeListFragment : Fragment(), IRecipeClickListener {
                     columnCount <= 1 -> LinearLayoutManager(context)
                     else -> GridLayoutManager(context, columnCount)
                 }
-                adapter = RecipeListAdapter(DummyRecipeListViewer(dummyUserRecipeWorker), listener)
+                adapter = RecipeListAdapter(DummyRecipeListViewer(LocalRecipes), listener)
             }
         }
 
