@@ -22,28 +22,6 @@
         app:layout_constraintStart_toEndOf="@+id/EditIcon"
         app:layout_constraintTop_toTopOf="@+id/EditIcon" />
 
-    <ListView
-        android:id="@+id/EditIngredientsList"
-        android:layout_width="0dp"
-        android:layout_height="144dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/EditNewIngredient" />
-
-    <ListView
-        android:id="@+id/EditStepList"
-        android:layout_width="0dp"
-        android:layout_height="144dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/EditNewStep" />
-
     <Spinner
         android:id="@+id/EditCategory"
         android:layout_width="166dp"
@@ -88,40 +66,37 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/EditCategory" />
 
-    <EditText
-        android:id="@+id/EditNewIngredient"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/EditIngredientsList"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="128dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="New Ingredient"
-        app:layout_constraintBottom_toBottomOf="@+id/EditIngredientAddButton"
-        app:layout_constraintEnd_toStartOf="@+id/EditIngredientAddButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/EditIngredientAddButton" />
+        app:layout_constraintTop_toBottomOf="@+id/EditIngredientAddButton"
+        tools:listitem="@layout/item_edit_textbox" />
 
-    <EditText
-        android:id="@+id/EditNewStep"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/EditStepsList"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="128dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="New Step"
-        app:layout_constraintBottom_toBottomOf="@+id/EditStepAddButton"
-        app:layout_constraintEnd_toStartOf="@+id/EditStepAddButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/EditStepAddButton" />
+        app:layout_constraintTop_toBottomOf="@+id/EditStepAddButton"
+        tools:listitem="@layout/item_edit_textbox" />
 
     <ImageButton
         android:id="@+id/EditIngredientAddButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:contentDescription="Add Ingredient"
+        android:layout_marginTop="8dp"
         android:src="@android:drawable/ic_menu_add"
         app:layout_constraintEnd_toEndOf="@+id/EditDescription"
         app:layout_constraintTop_toBottomOf="@+id/EditDescription" />
@@ -130,10 +105,29 @@
         android:id="@+id/EditStepAddButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:contentDescription="Add Step"
+        android:layout_marginTop="8dp"
         android:src="@android:drawable/ic_menu_add"
         app:layout_constraintEnd_toEndOf="@+id/EditIngredientsList"
         app:layout_constraintTop_toBottomOf="@+id/EditIngredientsList" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="Ingredients"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/EditIngredientsList"
+        app:layout_constraintStart_toStartOf="@+id/EditIngredientsList" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="Steps"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/EditStepsList"
+        app:layout_constraintStart_toStartOf="@+id/EditStepsList" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

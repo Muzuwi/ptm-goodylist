@@ -10,19 +10,20 @@ import android.widget.*
 import com.teambear.goodielist.models.Recipe
 import com.teambear.goodielist.models.RecipeCategory
 import com.teambear.goodielist.storage.LocalRecipes
-import com.teambear.goodielist.storage.UuidDbConverter
 import java.util.*
 import android.widget.AdapterView
 
 import android.widget.AdapterView.OnItemSelectedListener
-
-
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.teambear.goodielist.adapters.EditTextBoxListAdapter
 
 
 class FragmentRecipeEdit : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
     }
 
     override fun onCreateView(
@@ -87,7 +88,35 @@ class FragmentRecipeEdit : Fragment() {
 
         }
 
-        //TODO: Obsłuż pozostałe listy
+        var ingridientsList = view.findViewById<RecyclerView>(R.id.EditIngredientsList)
+
+        // Set the adapter
+        if (ingridientsList is RecyclerView) {
+            with(ingridientsList) {
+                layoutManager = LinearLayoutManager(context)
+                adapter = EditTextBoxListAdapter()
+            }
+        }
+
+        view.findViewById<ImageButton>(R.id.EditIngredientAddButton).setOnClickListener {
+            (ingridientsList.adapter as EditTextBoxListAdapter).addNewItem()
+            ingridientsList.adapter?.notifyDataSetChanged()
+        }
+
+        var stepsList = view.findViewById<RecyclerView>(R.id.EditStepsList)
+
+        // Set the adapter
+        if (stepsList is RecyclerView) {
+            with(stepsList) {
+                layoutManager = LinearLayoutManager(context)
+                adapter = EditTextBoxListAdapter()
+            }
+        }
+
+        view.findViewById<ImageButton>(R.id.EditStepAddButton).setOnClickListener {
+            (stepsList.adapter as EditTextBoxListAdapter).addNewItem()
+            stepsList.adapter?.notifyDataSetChanged()
+        }
 
         return view
     }

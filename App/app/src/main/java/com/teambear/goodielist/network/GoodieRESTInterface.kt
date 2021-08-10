@@ -21,7 +21,7 @@ interface GoodieRESTInterface {
 
 private val retrofit = Retrofit.Builder()
     .addConverterFactory(Json.asConverterFactory(MediaType.parse("application/json")!!))
-    .baseUrl("http://10.10.0.10:2136/api/v1/")
+    .baseUrl("https://goodielist.muzuwi.dev/api/v1/")
     .build()
 
 
