@@ -10,7 +10,7 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.RecyclerView
 import com.teambear.goodielist.databinding.ItemEditTextboxBinding
 
-class EditTextBoxListAdapter () : RecyclerView.Adapter<EditTextBoxListAdapter.ViewHolder>() {
+class EditTextBoxListAdapter () : RecyclerView.Adapter<EditTextBoxListAdapter.ViewHolder>(), IEditTextChangedListener {
 
     private var itemList: MutableList<String> = mutableListOf()
 
@@ -20,16 +20,17 @@ class EditTextBoxListAdapter () : RecyclerView.Adapter<EditTextBoxListAdapter.Vi
                 LayoutInflater.from(parent.context),
                 parent,
                 false
-            )
+            ),
+            this
         )
+    }
+
+    override fun OnTextChanged(position: Int, newText: String) {
+        itemList[position] = newText
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         println("{$position} / {${itemList.size}}")
-
-        holder.itemText.doAfterTextChanged {
-            itemList[position] = it.toString()
-        }
 
         holder.deleteButton.setOnClickListener {
             itemList.removeAt(position)
@@ -41,8 +42,16 @@ class EditTextBoxListAdapter () : RecyclerView.Adapter<EditTextBoxListAdapter.Vi
 
     override fun getItemCount(): Int = itemList.size
 
-    inner class ViewHolder(binding: ItemEditTextboxBinding) :
-        RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(binding: ItemEditTextboxBinding,
+                            val listener: IEditTextChangedListener
+                           ) : RecyclerView.ViewHolder(binding.root)
+    {
+        init {
+            binding.editItemTextbox.doAfterTextChanged {
+                listener.OnTextChanged(absoluteAdapterPosition, it.toString())
+            }
+        }
+
         public val itemText: EditText = binding.editItemTextbox
         public val deleteButton: ImageButton = binding.editItemDelete
     }
