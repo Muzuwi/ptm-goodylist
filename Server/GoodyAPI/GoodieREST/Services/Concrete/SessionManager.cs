@@ -29,8 +29,8 @@ namespace GoodyAPI.Services.Concrete
         {
             UserToken token = new UserToken();
             token.Token = Guid.NewGuid();
-            token.Created = DateTime.Now;
-            token.Expires = DateTime.Now.AddDays(2);
+            // token.Created = DateTime.Now;
+            // token.Expires = DateTime.Now.AddDays(2);
 
             UserSession session = new UserSession();
             session.Token = token;

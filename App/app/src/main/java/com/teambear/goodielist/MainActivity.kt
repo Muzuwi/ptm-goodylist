@@ -12,14 +12,54 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
 import com.teambear.goodielist.databinding.MainActivityBinding
+import com.teambear.goodielist.network.GoodieREST
+import com.teambear.goodielist.network.User
+import com.teambear.goodielist.network.UserAccount
+import com.teambear.goodielist.network.apitypes.UserLogin
 import com.teambear.goodielist.storage.LocalRecipes
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import java.lang.Exception
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: MainActivityBinding
+
+    private fun TempTestUser() {
+        var user = UserAccount.GetLocalUser()
+        if(user != null) {
+            System.out.println("User is not null. Username: " + user.username)
+            if(user.token != null)
+                System.out.println("Token: " + user.token.toString())
+        } else {
+            System.out.println("User is null")
+            UserAccount.SetLocalUser(
+                User(
+                    "test",
+                    UUID.randomUUID()
+                )
+            )
+        }
+
+        lifecycleScope.launch {
+            try {
+                Snackbar.make(binding.navView, "Trying to log in..", Snackbar.LENGTH_SHORT).show()
+                var result = GoodieREST.service.Login(UserLogin("test", "string"))
+                Snackbar.make(binding.navView, "Logged in. Token=" + result?.token.toString(), Snackbar.LENGTH_SHORT).show()
+
+            } catch (ex: Exception) {
+                Snackbar.make(binding.navView, ex.message.toString(), Snackbar.LENGTH_SHORT).show()
+                println(ex.message)
+            }
+            println("What?")
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +68,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         setSupportActionBar(binding.appBarMain.toolbar)
 
+        UserAccount.Init(applicationContext)
         LocalRecipes.Init(applicationContext)
+
+        TempTestUser()
 
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
