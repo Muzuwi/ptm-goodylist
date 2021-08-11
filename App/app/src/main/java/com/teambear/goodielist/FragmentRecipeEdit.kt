@@ -56,51 +56,19 @@ class FragmentRecipeEdit : Fragment() {
             }
         })
 
-        //SAVE BUTTON LISTENER
-        view.findViewById<Button>(R.id.EditSaveButton).setOnClickListener {
-            //TODO: Dodaj zapis Przepisu
-            Log.d("btnSetup", "Saved")
-
-            var name = view.findViewById<EditText>(R.id.EditName).text.toString()
-            var category = when(view.findViewById<Spinner>(R.id.EditCategory).selectedItem.toString()){
-                "Breakfast" -> RecipeCategory.BREAKFAST
-                "Lunch" -> RecipeCategory.LUNCH
-                "Supper" -> RecipeCategory.SUPPER
-                "Dessert" -> RecipeCategory.DESSERT
-                else -> RecipeCategory.BREAKFAST
-            }
-            var description = view.findViewById<EditText>(R.id.EditDescription).text.toString()
-
-            //Temporary static add
-            LocalRecipes.InsertRecipe(
-                Recipe(
-                    UUID.randomUUID(),
-                    "test",
-                    Calendar.getInstance().getTime(),
-                    name,
-                    category,
-                    listOf(),
-                    listOf(),
-                    description,
-                    listOf()
-                )
-            )
-
-        }
-
-        var ingridientsList = view.findViewById<RecyclerView>(R.id.EditIngredientsList)
+        var ingredientsList = view.findViewById<RecyclerView>(R.id.EditIngredientsList)
 
         // Set the adapter
-        if (ingridientsList is RecyclerView) {
-            with(ingridientsList) {
+        if (ingredientsList is RecyclerView) {
+            with(ingredientsList) {
                 layoutManager = LinearLayoutManager(context)
                 adapter = EditTextBoxListAdapter()
             }
         }
 
         view.findViewById<ImageButton>(R.id.EditIngredientAddButton).setOnClickListener {
-            (ingridientsList.adapter as EditTextBoxListAdapter).addNewItem()
-            ingridientsList.adapter?.notifyDataSetChanged()
+            (ingredientsList.adapter as EditTextBoxListAdapter).addNewItem()
+            ingredientsList.adapter?.notifyDataSetChanged()
         }
 
         var stepsList = view.findViewById<RecyclerView>(R.id.EditStepsList)
@@ -116,6 +84,41 @@ class FragmentRecipeEdit : Fragment() {
         view.findViewById<ImageButton>(R.id.EditStepAddButton).setOnClickListener {
             (stepsList.adapter as EditTextBoxListAdapter).addNewItem()
             stepsList.adapter?.notifyDataSetChanged()
+        }
+
+        //SAVE BUTTON LISTENER
+        view.findViewById<Button>(R.id.EditSaveButton).setOnClickListener {
+            //TODO: Dodaj zapis Przepisu
+            Log.d("btnSetup", "Saved")
+
+            var name = view.findViewById<EditText>(R.id.EditName).text.toString()
+            var category = when(view.findViewById<Spinner>(R.id.EditCategory).selectedItem.toString()){
+                "Breakfast" -> RecipeCategory.BREAKFAST
+                "Lunch" -> RecipeCategory.LUNCH
+                "Supper" -> RecipeCategory.SUPPER
+                "Dessert" -> RecipeCategory.DESSERT
+                else -> RecipeCategory.BREAKFAST
+            }
+            var description = view.findViewById<EditText>(R.id.EditDescription).text.toString()
+
+            var ingredients: List<String> = (ingredientsList.adapter as EditTextBoxListAdapter).getItemList()
+            var steps: List<String> = (stepsList.adapter as EditTextBoxListAdapter).getItemList()
+
+            //Temporary static add
+            LocalRecipes.InsertRecipe(
+                Recipe(
+                    UUID.randomUUID(),
+                    "test",
+                    Calendar.getInstance().getTime(),
+                    name,
+                    category,
+                    listOf(),
+                    ingredients,
+                    description,
+                    steps
+                )
+            )
+
         }
 
         return view

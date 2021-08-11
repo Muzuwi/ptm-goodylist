@@ -41,6 +41,7 @@ class EditTextBoxListAdapter () : RecyclerView.Adapter<EditTextBoxListAdapter.Vi
     }
 
     override fun getItemCount(): Int = itemList.size
+    fun getItemList(): List<String> = itemList
 
     inner class ViewHolder(binding: ItemEditTextboxBinding,
                             val listener: IEditTextChangedListener
