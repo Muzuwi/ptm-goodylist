@@ -7,39 +7,20 @@
     android:layout_height="match_parent"
     tools:context=".FragmentRecipeEdit">
 
-    <EditText
-        android:id="@+id/EditName"
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/EditViewPager"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:minHeight="48dp"
-        android:text="Recipe name"
-        android:textSize="16sp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/EditSaveButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/EditIcon"
-        app:layout_constraintTop_toTopOf="@+id/EditIcon" />
+        app:layout_constraintStart_toStartOf="parent" >
 
-    <Spinner
-        android:id="@+id/EditCategory"
-        android:layout_width="166dp"
-        android:layout_height="49dp"
-        android:layout_marginTop="4dp"
-        android:entries="@array/Categories"
-        app:layout_constraintStart_toStartOf="@+id/EditName"
-        app:layout_constraintTop_toBottomOf="@+id/EditName" />
-
-    <ImageView
-        android:id="@+id/EditIcon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:src="@drawable/icon_breakfest"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/editTabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </androidx.viewpager.widget.ViewPager>
 
     <Button
         android:id="@+id/EditSaveButton"
@@ -50,84 +31,5 @@
         android:text="Save"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
-
-    <EditText
-        android:id="@+id/EditDescription"
-        android:layout_width="0dp"
-        android:layout_height="96dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:ems="10"
-        android:gravity="start|top"
-        android:inputType="textMultiLine"
-        android:text="Description"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/EditCategory" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/EditIngredientsList"
-        android:layout_width="0dp"
-        android:layout_height="128dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/EditIngredientAddButton"
-        tools:listitem="@layout/item_edit_textbox" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/EditStepsList"
-        android:layout_width="0dp"
-        android:layout_height="128dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/EditStepAddButton"
-        tools:listitem="@layout/item_edit_textbox" />
-
-    <ImageButton
-        android:id="@+id/EditIngredientAddButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:src="@android:drawable/ic_menu_add"
-        app:layout_constraintEnd_toEndOf="@+id/EditDescription"
-        app:layout_constraintTop_toBottomOf="@+id/EditDescription" />
-
-    <ImageButton
-        android:id="@+id/EditStepAddButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:src="@android:drawable/ic_menu_add"
-        app:layout_constraintEnd_toEndOf="@+id/EditIngredientsList"
-        app:layout_constraintTop_toBottomOf="@+id/EditIngredientsList" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:text="Ingredients"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/EditIngredientsList"
-        app:layout_constraintStart_toStartOf="@+id/EditIngredientsList" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:text="Steps"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/EditStepsList"
-        app:layout_constraintStart_toStartOf="@+id/EditStepsList" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

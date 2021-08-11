@@ -32,76 +32,31 @@ class FragmentRecipeEdit : Fragment() {
     ): View? {
         val view: View = inflater!!.inflate(R.layout.fragment_recipe_edit, container, false)
 
-        //CHANGE SPINNER LISTENER
-        view.findViewById<Spinner>(R.id.EditCategory).setOnItemSelectedListener(object :
-            OnItemSelectedListener {
-            override fun onItemSelected(
-                parentView: AdapterView<*>?,
-                selectedItemView: View,
-                position: Int,
-                id: Long
-            ) {
-                var icon = when(position){
-                    0 -> R.drawable.icon_breakfest
-                    1 -> R.drawable.icon_lunch
-                    2 -> R.drawable.icon_supper
-                    3 -> R.drawable.icon_dessert
-                    else -> R.drawable.icon_breakfest
-                }
-                view.findViewById<ImageView>(R.id.EditIcon).setImageResource(icon)
-            }
-
-            override fun onNothingSelected(parentView: AdapterView<*>?) {
-                view.findViewById<ImageView>(R.id.EditIcon).setImageResource(R.drawable.icon_breakfest)
-            }
-        })
-
-        var ingredientsList = view.findViewById<RecyclerView>(R.id.EditIngredientsList)
-
-        // Set the adapter
-        if (ingredientsList is RecyclerView) {
-            with(ingredientsList) {
-                layoutManager = LinearLayoutManager(context)
-                adapter = EditTextBoxListAdapter()
-            }
-        }
-
-        view.findViewById<ImageButton>(R.id.EditIngredientAddButton).setOnClickListener {
-            (ingredientsList.adapter as EditTextBoxListAdapter).addNewItem()
-            ingredientsList.adapter?.notifyDataSetChanged()
-        }
-
-        var stepsList = view.findViewById<RecyclerView>(R.id.EditStepsList)
-
-        // Set the adapter
-        if (stepsList is RecyclerView) {
-            with(stepsList) {
-                layoutManager = LinearLayoutManager(context)
-                adapter = EditTextBoxListAdapter()
-            }
-        }
-
-        view.findViewById<ImageButton>(R.id.EditStepAddButton).setOnClickListener {
-            (stepsList.adapter as EditTextBoxListAdapter).addNewItem()
-            stepsList.adapter?.notifyDataSetChanged()
-        }
-
         //SAVE BUTTON LISTENER
         view.findViewById<Button>(R.id.EditSaveButton).setOnClickListener {
             //TODO: Dodaj zapis Przepisu
             Log.d("btnSetup", "Saved")
 
-            var name = view.findViewById<EditText>(R.id.EditName).text.toString()
-            var category = when(view.findViewById<Spinner>(R.id.EditCategory).selectedItem.toString()){
+            val mainPage = childFragmentManager.findFragmentById(R.id.EditViewMain)!! as FragmentRecipeEditMain
+            val ingredientsPage = childFragmentManager.findFragmentById(R.id.EditViewIngredients)!! as FragmentRecipeEditIngredients
+            val stepsPage = childFragmentManager.findFragmentById(R.id.EditViewSteps)!! as FragmentRecipeEditSteps
+
+            var name = mainPage.requireView().findViewById<EditText>(R.id.editName).text.toString()
+
+            //var name = view.findViewById<EditText>(R.id.editName).text.toString()
+            var category = when(mainPage.requireView().findViewById<Spinner>(R.id.editCategory).selectedItem.toString()){
                 "Breakfast" -> RecipeCategory.BREAKFAST
                 "Lunch" -> RecipeCategory.LUNCH
                 "Supper" -> RecipeCategory.SUPPER
                 "Dessert" -> RecipeCategory.DESSERT
                 else -> RecipeCategory.BREAKFAST
             }
-            var description = view.findViewById<EditText>(R.id.EditDescription).text.toString()
+            var description = mainPage.requireView().findViewById<EditText>(R.id.editDescription).text.toString()
 
+            var ingredientsList = ingredientsPage.requireView().findViewById<RecyclerView>(R.id.EditIngredientsList)
             var ingredients: List<String> = (ingredientsList.adapter as EditTextBoxListAdapter).getItemList()
+
+            var stepsList = stepsPage.requireView().findViewById<RecyclerView>(R.id.EditStepsList)
             var steps: List<String> = (stepsList.adapter as EditTextBoxListAdapter).getItemList()
 
             //Temporary static add
