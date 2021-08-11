@@ -1,17 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.teambear.goodielist">
+    package="com.teambear.goodielist" >
 
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/icon_main"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/icon_main"
         android:supportsRtl="true"
         android:theme="@style/Theme.Goodielist"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true" >
+        <activity
+            android:name=".RegisterActivity"
+            android:exported="true" />
+        <activity
+            android:name=".testActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:exported="true"
+            android:label="@string/title_activity_test"
+            android:theme="@style/Theme.Goodielist.Fullscreen" />
+        <activity
+            android:name=".LogInActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:exported="true"
+            android:label="@string/title_activity_log_in"
+            android:theme="@style/Theme.Goodielist.Fullscreen" />
         <activity
             android:name=".EditTabPage"
             android:exported="true"
@@ -21,7 +36,7 @@
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.Goodielist.NoActionBar">
+            android:theme="@style/Theme.Goodielist.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

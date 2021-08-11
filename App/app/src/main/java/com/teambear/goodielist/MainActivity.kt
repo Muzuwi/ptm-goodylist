@@ -1,11 +1,14 @@
 package com.teambear.goodielist
 
+import android.app.ActivityOptions
+import android.content.Intent
 import android.os.Bundle
 import android.os.ParcelUuid
 import android.view.ContextMenu
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
+import android.widget.TextView
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -110,14 +113,27 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        UserAccount.Init(applicationContext)
+        LocalRecipes.Init(applicationContext)
+        //TempTestUser()
+
+        if(UserAccount.GetLocalUser() == null){
+            //Go to login page
+            val intent = Intent(this, LogInActivity::class.java)
+            startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle())
+        }
+
         binding = MainActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.appBarMain.toolbar)
 
-        UserAccount.Init(applicationContext)
-        LocalRecipes.Init(applicationContext)
+        val localUser = UserAccount.GetLocalUser()
+        var logInString = "Not Logged In"
 
-        TempTestUser()
+        if(localUser != null){
+            logInString = "Logged in as ${localUser.username}"
+        }
+        binding.navView.getHeaderView(0).findViewById<TextView>(R.id.main_nav_logged_as).text = logInString
 
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
