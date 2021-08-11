@@ -15,6 +15,10 @@ import com.teambear.goodielist.adapters.DisplayTextViewListAdapter
 import com.teambear.goodielist.models.RecipeCategory
 import com.teambear.goodielist.storage.LocalRecipes
 import java.text.SimpleDateFormat
+import android.text.method.ScrollingMovementMethod
+
+
+
 
 class RecipeViewFragment : Fragment() {
     val args: RecipeViewFragmentArgs by navArgs()
@@ -65,6 +69,8 @@ class RecipeViewFragment : Fragment() {
 
         //Recipe description
         view.findViewById<TextView>(R.id.DetailsDescription).text = recipe.description
+        view.findViewById<TextView>(R.id.DetailsDescription).movementMethod = ScrollingMovementMethod()
+
 
         //Recipe created date
         val simpleDateFormat = SimpleDateFormat("dd-MM-yyyy")

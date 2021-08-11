@@ -10,71 +10,34 @@
     <TextView
         android:id="@+id/DetailsDescription"
         android:layout_width="0dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="16dp"
-        android:scrollbars="vertical"
-        android:text="Description"
-        app:layout_constraintEnd_toEndOf="@+id/DetailsName"
-        app:layout_constraintStart_toStartOf="@+id/DetailsIcon"
-        app:layout_constraintTop_toBottomOf="@+id/detailsTagList" />
-
-    <TextView
-        android:id="@+id/DetailsName"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="16dp"
-        android:text="Name"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/DetailsIcon"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/DetailsAuthor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Author"
-        app:layout_constraintStart_toStartOf="@+id/DetailsName"
-        app:layout_constraintTop_toBottomOf="@+id/DetailsName" />
-
-    <TextView
-        android:id="@+id/DetailsCreated"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="01.01.1970"
-        app:layout_constraintEnd_toEndOf="@+id/DetailsName"
-        app:layout_constraintTop_toBottomOf="@+id/DetailsName" />
-
-    <ImageView
-        android:id="@+id/DetailsIcon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="125dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:src="@drawable/icon_breakfest"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/tag_frame"
+        android:scrollbars="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/detailsTagList" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/detailsTagList"
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/DetailsIcon" />
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout2" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/detailsIngredientList"
         android:layout_width="0dp"
-        android:layout_height="175dp"
+        android:layout_height="160dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -84,11 +47,104 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/detailsStepsList"
         android:layout_width="0dp"
-        android:layout_height="175dp"
+        android:layout_height="160dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/detailsIngredientList" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Descripton:"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/DetailsDescription"
+        app:layout_constraintStart_toStartOf="@+id/DetailsDescription" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ingredients:"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/detailsIngredientList"
+        app:layout_constraintStart_toStartOf="@+id/detailsIngredientList" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Steps:"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/detailsStepsList"
+        app:layout_constraintStart_toStartOf="@+id/detailsStepsList" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/frameLayout2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/tag_frame"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/DetailsIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="16dp"
+            android:src="@drawable/icon_breakfest"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/DetailsCreated"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:text="01.01.1970"
+            app:layout_constraintBottom_toBottomOf="@+id/DetailsName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/DetailsName" />
+
+        <TextView
+            android:id="@+id/DetailsAuthor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Author"
+            app:layout_constraintStart_toStartOf="@+id/DetailsName"
+            app:layout_constraintTop_toBottomOf="@+id/DetailsName" />
+
+        <TextView
+            android:id="@+id/DetailsName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:text="Recipe Name"
+            android:textSize="20sp"
+            app:layout_constraintStart_toEndOf="@+id/DetailsIcon"
+            app:layout_constraintTop_toTopOf="@+id/DetailsIcon" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tags:"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/detailsTagList"
+        app:layout_constraintStart_toStartOf="@+id/detailsTagList" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
