@@ -10,8 +10,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.teambear.goodielist.adapters.EditTagListAdapter
 import com.teambear.goodielist.dialogs.editAddTagDialog
+import com.teambear.goodielist.interfaces.IRecipeEditViewCreated
 
-class FragmentRecipeEditMain : Fragment() {
+class FragmentRecipeEditMain(
+    val viewCreatedListener: IRecipeEditViewCreated
+) : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,5 +41,9 @@ class FragmentRecipeEditMain : Fragment() {
         }
 
         return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        viewCreatedListener.OnTabViewCreated(this)
     }
 }

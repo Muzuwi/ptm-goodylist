@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.PopupMenu
 import android.widget.TextView
 import com.teambear.goodielist.R
 
@@ -13,7 +14,6 @@ import com.teambear.goodielist.databinding.FragmentRecipeListItemBinding
 import com.teambear.goodielist.models.RecipeCategory
 import com.teambear.goodielist.interfaces.IRecipeClickListener
 import com.teambear.goodielist.interfaces.IRecipeListViewer
-import com.teambear.goodielist.interfaces.IUserRecipeWorker
 import com.teambear.goodielist.models.Recipe
 import java.text.SimpleDateFormat
 import java.util.*
@@ -39,6 +39,7 @@ class RecipeListAdapter(
 
         holder.BindFromRecipe(item);
         holder.BindListener(recipeClickListener, position)
+
     }
 
     override fun getItemCount(): Int = recipeViewer.GetItemCount()
@@ -49,7 +50,12 @@ class RecipeListAdapter(
         private val userView: TextView = binding.ListItemUser
         private val dateView: TextView = binding.ListItemDate
         private val iconView: ImageView = binding.ListItemIcon
-        private val itemContainer: View = binding.root.rootView
+        val itemContainer: View = binding.root.rootView
+
+        init {
+            itemView.isClickable = true
+            itemView.isLongClickable = true
+        }
 
         fun BindFromRecipe(recipe: Recipe) {
             nameView.text = recipe.name
@@ -72,15 +78,20 @@ class RecipeListAdapter(
                 RecipeCategory.SUPPER -> "#FFB74D"
                 RecipeCategory.DESSERT -> "#E57373"
             }
-            itemContainer.setBackgroundColor(Color.parseColor(tileColorString))
+//            itemContainer.setBackgroundColor(Color.parseColor(tileColorString))
 
         }
 
         fun BindListener(recipeClickListener: IRecipeClickListener, position: Int) {
             val recipe: Recipe = recipeViewer.GetItemByPostion(position) ?: return
 
-            itemContainer.setOnClickListener {
+            itemView.setOnClickListener {
                 recipeClickListener.OnRecipeClick(recipe)
+            }
+
+            itemView.setOnLongClickListener {
+                recipeClickListener.OnRecipeLongClick(it, recipe)
+                return@setOnLongClickListener true
             }
         }
    }

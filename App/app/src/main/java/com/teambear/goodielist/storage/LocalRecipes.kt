@@ -76,6 +76,12 @@ object LocalRecipes : IUserRecipeWorker {
         return true
     }
 
+    private fun DeleteLocalRecipe(id: UUID): Boolean {
+        val entity = database.recipeDao().GetEntityByID(id) ?: return false
+        database.recipeDao().DeleteEntity(entity)
+        return true
+    }
+
     /*
         Implementacje interfejsu IUserRecipeWorker
      */
@@ -99,5 +105,9 @@ object LocalRecipes : IUserRecipeWorker {
 
     override fun InsertRecipe(newRecipe: Recipe): Boolean {
         return InsertLocalRecipe(newRecipe)
+    }
+
+    override fun DeleteRecipe(id: UUID): Boolean {
+        return DeleteLocalRecipe(id)
     }
 }

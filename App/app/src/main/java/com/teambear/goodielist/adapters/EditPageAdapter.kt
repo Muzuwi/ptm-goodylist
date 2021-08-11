@@ -6,9 +6,11 @@ import androidx.fragment.app.FragmentPagerAdapter
 import com.teambear.goodielist.FragmentRecipeEditIngredients
 import com.teambear.goodielist.FragmentRecipeEditMain
 import com.teambear.goodielist.FragmentRecipeEditSteps
+import com.teambear.goodielist.interfaces.IRecipeEditViewCreated
 
 class EditPageAdapter(
-    val fm: FragmentManager
+    fm: FragmentManager,
+    viewCreatedListener: IRecipeEditViewCreated
 ) : FragmentPagerAdapter(fm) {
 
     init {
@@ -16,9 +18,9 @@ class EditPageAdapter(
     }
 
     val pageFragments: List<Fragment> = listOf(
-        FragmentRecipeEditMain(),
-        FragmentRecipeEditIngredients(),
-        FragmentRecipeEditSteps(),
+        FragmentRecipeEditMain(viewCreatedListener),
+        FragmentRecipeEditIngredients(viewCreatedListener),
+        FragmentRecipeEditSteps(viewCreatedListener),
     )
 
     val pageLabels: List<String> = listOf(

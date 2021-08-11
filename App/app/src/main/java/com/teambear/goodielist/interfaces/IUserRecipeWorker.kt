@@ -14,4 +14,6 @@ interface IUserRecipeWorker {
 
     fun InsertRecipe(newRecipe: Recipe): Boolean
 
+    fun DeleteRecipe(id: UUID): Boolean
+
 }

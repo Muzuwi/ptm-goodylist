@@ -8,10 +8,12 @@ import android.widget.ImageButton
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.teambear.goodielist.R
 import com.teambear.goodielist.adapters.EditTextBoxListAdapter
+import com.teambear.goodielist.interfaces.IRecipeEditViewCreated
 
-class FragmentRecipeEditIngredients : Fragment() {
+class FragmentRecipeEditIngredients (
+    val viewCreatedListener: IRecipeEditViewCreated
+) : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,5 +44,9 @@ class FragmentRecipeEditIngredients : Fragment() {
         }
 
         return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        viewCreatedListener.OnTabViewCreated(this)
     }
 }

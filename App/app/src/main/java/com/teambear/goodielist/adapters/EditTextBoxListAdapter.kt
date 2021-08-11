@@ -12,7 +12,7 @@ import com.teambear.goodielist.interfaces.IEditTextChangedListener
 class EditTextBoxListAdapter () : RecyclerView.Adapter<EditTextBoxListAdapter.ViewHolder>(),
     IEditTextChangedListener {
 
-    private var itemList: MutableList<String> = mutableListOf()
+    var itemList: MutableList<String> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -41,7 +41,6 @@ class EditTextBoxListAdapter () : RecyclerView.Adapter<EditTextBoxListAdapter.Vi
     }
 
     override fun getItemCount(): Int = itemList.size
-    fun getItemList(): List<String> = itemList
 
     inner class ViewHolder(binding: ItemEditTextboxBinding,
                             val listener: IEditTextChangedListener
