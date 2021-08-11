@@ -37,8 +37,6 @@ class RecipeViewFragment : Fragment() {
         view.findViewById<TextView>(R.id.DetailsAuthor).text = recipe.username
         view.findViewById<TextView>(R.id.DetailsCategory).text = recipe.category.toString()
         view.findViewById<TextView>(R.id.DetailsDescription).text = recipe.description
-        view.findViewById<TextView>(R.id.DetailsIngredients).text = recipe.ingredients.toString()
-        view.findViewById<TextView>(R.id.DetailsSteps).text = recipe.steps.toString()
 
         val simpleDateFormat = SimpleDateFormat("dd-MM-yyyy")
         view.findViewById<TextView>(R.id.DetailsCreated).text = simpleDateFormat.format(recipe.created)
@@ -50,6 +48,18 @@ class RecipeViewFragment : Fragment() {
             RecipeCategory.DESSERT -> R.drawable.icon_dessert
         }
         view.findViewById<ImageView>(R.id.DetailsIcon).setImageResource(icon)
+
+        var ingredientsListString = "Ingredients:\n"
+        recipe.ingredients.forEach {
+            ingredientsListString += "-> ${it.toString()}\n"
+        }
+        view.findViewById<TextView>(R.id.DetailsIngredients).text = ingredientsListString
+
+        var stepsListString = "Steps:\n"
+        recipe.steps.forEach {
+            stepsListString += "-> ${it.toString()}\n"
+        }
+        view.findViewById<TextView>(R.id.DetailsSteps).text = stepsListString
     }
 
 }
