@@ -18,6 +18,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.teambear.goodielist.databinding.MainActivityBinding
+import com.teambear.goodielist.models.Recipe
+import com.teambear.goodielist.models.RecipeCategory
+import com.teambear.goodielist.network.GoodieAPIWorker
 import com.teambear.goodielist.network.GoodieREST
 import com.teambear.goodielist.network.User
 import com.teambear.goodielist.network.UserAccount
@@ -34,33 +37,74 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: MainActivityBinding
 
     private fun TempTestUser() {
-        var user = UserAccount.GetLocalUser()
-        if(user != null) {
-            System.out.println("User is not null. Username: " + user.username)
-            if(user.token != null)
-                System.out.println("Token: " + user.token.toString())
-        } else {
-            System.out.println("User is null")
-            UserAccount.SetLocalUser(
-                User(
-                    "test",
-                    UUID.randomUUID()
-                )
-            )
-        }
-
-        lifecycleScope.launch {
-            try {
-                Snackbar.make(binding.navView, "Trying to log in..", Snackbar.LENGTH_SHORT).show()
-                var result = GoodieREST.service.Login(UserLogin("test", "string"))
-                Snackbar.make(binding.navView, "Logged in. Token=" + result?.token.toString(), Snackbar.LENGTH_SHORT).show()
-
-            } catch (ex: Exception) {
-                Snackbar.make(binding.navView, ex.message.toString(), Snackbar.LENGTH_SHORT).show()
-                println(ex.message)
-            }
-            println("What?")
-        }
+//        var user = UserAccount.GetLocalUser()
+//        if(user != null) {
+//            System.out.println("User is not null. Username: " + user.username)
+//            if(user.token != null)
+//                System.out.println("Token: " + user.token.toString())
+//        } else {
+//            System.out.println("User is null")
+//            UserAccount.SetLocalUser(
+//                User(
+//                    "test",
+//                    UUID.randomUUID()
+//                )
+//            )
+//        }
+//
+//        lifecycleScope.launch {
+//            try {
+//                Snackbar.make(binding.navView, "Trying to log in..", Snackbar.LENGTH_SHORT).show()
+//                var result = GoodieREST.service.Login(UserLogin("test", "string"))
+//                Snackbar.make(binding.navView, "Logged in. Token=" + result?.token.toString(), Snackbar.LENGTH_SHORT).show()
+//            } catch (ex: Exception) {
+//                Snackbar.make(binding.navView, ex.message.toString(), Snackbar.LENGTH_SHORT).show()
+//                println(ex.message)
+//            }
+//            println("What?")
+//        }
+//
+//        lifecycleScope.launch {
+//            try {
+//                var worker = GoodieAPIWorker()
+//                var recipe = worker.FetchRecipe(UUID.randomUUID(), UUID.randomUUID())
+//
+//            } catch (ex: Exception) {
+//                Snackbar.make(binding.navView, ex.message.toString(), Snackbar.LENGTH_SHORT).show()
+//                println(ex.message)
+//            }
+//        }
+//        lifecycleScope.launch {
+//            try {
+//                var worker = GoodieAPIWorker()
+//                var new = Recipe(UUID.randomUUID(),"",Calendar.getInstance().time, "", RecipeCategory.LUNCH, listOf(), listOf(), "", listOf())
+//                var recipe = worker.UpdateRecipe(UUID.randomUUID(), new)
+//
+//            } catch (ex: Exception) {
+//                Snackbar.make(binding.navView, ex.message.toString(), Snackbar.LENGTH_SHORT).show()
+//                println(ex.message)
+//            }
+//        }
+//        lifecycleScope.launch {
+//            try {
+//                var worker = GoodieAPIWorker()
+//                var new = Recipe(UUID.randomUUID(),"",Calendar.getInstance().time, "", RecipeCategory.LUNCH, listOf(), listOf(), "", listOf())
+//                var recipe = worker.CreateRecipe(UUID.randomUUID(), new)
+//
+//            } catch (ex: Exception) {
+//                Snackbar.make(binding.navView, ex.message.toString(), Snackbar.LENGTH_SHORT).show()
+//                println(ex.message)
+//            }
+//        }
+//        lifecycleScope.launch {
+//            try {
+//                var worker = GoodieAPIWorker()
+//                var recipes = worker.FetchUserRecipes(UUID.randomUUID())
+//            } catch (ex: Exception) {
+//                Snackbar.make(binding.navView, ex.message.toString(), Snackbar.LENGTH_SHORT).show()
+//                println(ex.message)
+//            }
+//        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
