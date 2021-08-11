@@ -21,14 +21,14 @@ class FragmentRecipeEditMain : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view: View = inflater!!.inflate(R.layout.fragment_recipe_edit_main, container, false)
+        val view: View = inflater.inflate(R.layout.fragment_recipe_edit_main, container, false)
 
         //CHANGE SPINNER LISTENER
         view.findViewById<Spinner>(R.id.editCategory).setOnItemSelectedListener(object :
             AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parentView: AdapterView<*>?,
-                selectedItemView: View,
+                selectedItemView: View?,
                 position: Int,
                 id: Long
             ) {
@@ -47,6 +47,6 @@ class FragmentRecipeEditMain : Fragment() {
             }
         })
 
-        return super.onCreateView(inflater, container, savedInstanceState)
+        return view
     }
 }

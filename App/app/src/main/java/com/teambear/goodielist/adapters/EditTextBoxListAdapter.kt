@@ -48,6 +48,7 @@ class EditTextBoxListAdapter () : RecyclerView.Adapter<EditTextBoxListAdapter.Vi
                            ) : RecyclerView.ViewHolder(binding.root)
     {
         init {
+            println("Create view holder")
             binding.editItemTextbox.doAfterTextChanged {
                 listener.OnTextChanged(absoluteAdapterPosition, it.toString())
             }

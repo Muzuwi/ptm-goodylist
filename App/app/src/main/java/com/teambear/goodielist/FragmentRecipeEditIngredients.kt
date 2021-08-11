@@ -23,8 +23,10 @@ class FragmentRecipeEditIngredients : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view: View = inflater!!.inflate(R.layout.fragment_recipe_edit_ingredients, container, false)
+        val view: View = inflater.inflate(R.layout.fragment_recipe_edit_ingredients, container, false)
         var ingredientsList = view.findViewById<RecyclerView>(R.id.EditIngredientsList)
+
+        println("Ingredients fragment created")
 
         // Set the adapter
         if (ingredientsList is RecyclerView) {
@@ -39,6 +41,6 @@ class FragmentRecipeEditIngredients : Fragment() {
             ingredientsList.adapter?.notifyDataSetChanged()
         }
 
-        return super.onCreateView(inflater, container, savedInstanceState)
+        return view
     }
 }

@@ -16,10 +16,15 @@ import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager.widget.ViewPager
+import com.google.android.material.tabs.TabLayout
+import com.teambear.goodielist.adapters.EditPageAdapter
 import com.teambear.goodielist.adapters.EditTextBoxListAdapter
 
 
 class FragmentRecipeEdit : Fragment() {
+    private lateinit var editPageAdapter: EditPageAdapter
+    private lateinit var viewPager: ViewPager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,14 +37,23 @@ class FragmentRecipeEdit : Fragment() {
     ): View? {
         val view: View = inflater!!.inflate(R.layout.fragment_recipe_edit, container, false)
 
+        editPageAdapter = EditPageAdapter(childFragmentManager)
+        viewPager = view.findViewById(R.id.EditViewPager)
+        viewPager.offscreenPageLimit = 3
+        viewPager.adapter = editPageAdapter
+
+        val tabLayout = view.findViewById<TabLayout>(R.id.editTabLayout)
+        tabLayout.setupWithViewPager(viewPager)
+
         //SAVE BUTTON LISTENER
         view.findViewById<Button>(R.id.EditSaveButton).setOnClickListener {
             //TODO: Dodaj zapis Przepisu
             Log.d("btnSetup", "Saved")
 
-            val mainPage = childFragmentManager.findFragmentById(R.id.EditViewMain)!! as FragmentRecipeEditMain
-            val ingredientsPage = childFragmentManager.findFragmentById(R.id.EditViewIngredients)!! as FragmentRecipeEditIngredients
-            val stepsPage = childFragmentManager.findFragmentById(R.id.EditViewSteps)!! as FragmentRecipeEditSteps
+            val adapter = editPageAdapter.pageFragments
+            val mainPage = adapter[0] as FragmentRecipeEditMain
+            val ingredientsPage = adapter[1] as FragmentRecipeEditIngredients
+            val stepsPage = adapter[2] as FragmentRecipeEditSteps
 
             var name = mainPage.requireView().findViewById<EditText>(R.id.editName).text.toString()
 
