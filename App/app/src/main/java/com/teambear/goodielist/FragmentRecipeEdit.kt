@@ -19,7 +19,9 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import com.teambear.goodielist.adapters.EditPageAdapter
+import com.teambear.goodielist.adapters.EditTagListAdapter
 import com.teambear.goodielist.adapters.EditTextBoxListAdapter
+import com.teambear.goodielist.network.UserAccount
 
 
 class FragmentRecipeEdit : Fragment() {
@@ -55,33 +57,29 @@ class FragmentRecipeEdit : Fragment() {
             val ingredientsPage = adapter[1] as FragmentRecipeEditIngredients
             val stepsPage = adapter[2] as FragmentRecipeEditSteps
 
-            var name = mainPage.requireView().findViewById<EditText>(R.id.editName).text.toString()
+            val name = mainPage.requireView().findViewById<EditText>(R.id.editName).text.toString()
+            val description = mainPage.requireView().findViewById<EditText>(R.id.editDescription).text.toString()
 
-            //var name = view.findViewById<EditText>(R.id.editName).text.toString()
-            var category = when(mainPage.requireView().findViewById<Spinner>(R.id.editCategory).selectedItem.toString()){
-                "Breakfast" -> RecipeCategory.BREAKFAST
-                "Lunch" -> RecipeCategory.LUNCH
-                "Supper" -> RecipeCategory.SUPPER
-                "Dessert" -> RecipeCategory.DESSERT
-                else -> RecipeCategory.BREAKFAST
-            }
-            var description = mainPage.requireView().findViewById<EditText>(R.id.editDescription).text.toString()
+            val tagList = mainPage.requireView().findViewById<RecyclerView>(R.id.editTagList)
+            val tags: List<String> = (tagList.adapter as EditTagListAdapter).getItemList()
 
-            var ingredientsList = ingredientsPage.requireView().findViewById<RecyclerView>(R.id.EditIngredientsList)
-            var ingredients: List<String> = (ingredientsList.adapter as EditTextBoxListAdapter).getItemList()
+            val ingredientsList = ingredientsPage.requireView().findViewById<RecyclerView>(R.id.EditIngredientsList)
+            val ingredients: List<String> = (ingredientsList.adapter as EditTextBoxListAdapter).getItemList()
 
-            var stepsList = stepsPage.requireView().findViewById<RecyclerView>(R.id.EditStepsList)
-            var steps: List<String> = (stepsList.adapter as EditTextBoxListAdapter).getItemList()
+            val stepsList = stepsPage.requireView().findViewById<RecyclerView>(R.id.EditStepsList)
+            val steps: List<String> = (stepsList.adapter as EditTextBoxListAdapter).getItemList()
+
+            val username: String = UserAccount.GetLocalUser()!!.username
 
             //Temporary static add
             LocalRecipes.InsertRecipe(
                 Recipe(
                     UUID.randomUUID(),
-                    "test",
+                    username,
                     Calendar.getInstance().getTime(),
                     name,
-                    category,
-                    listOf(),
+                    RecipeCategory.BREAKFAST,
+                    tags,
                     ingredients,
                     description,
                     steps

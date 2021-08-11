@@ -21,6 +21,12 @@ class EditPageAdapter(
         FragmentRecipeEditSteps(),
     )
 
+    val pageLabels: List<String> = listOf(
+        "Main",
+        "Ingredients",
+        "Steps"
+        )
+
     override fun getCount(): Int = pageFragments.size
 
     override fun getItem(i: Int): Fragment {
@@ -28,6 +34,6 @@ class EditPageAdapter(
     }
 
     override fun getPageTitle(position: Int): CharSequence {
-        return "OBJECT ${(position + 1)}"
+        return pageLabels[position]
     }
 }

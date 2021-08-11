@@ -4,10 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ImageView
-import android.widget.Spinner
+import android.widget.ImageButton
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.teambear.goodielist.adapters.EditTagListAdapter
+import com.teambear.goodielist.dialogs.editAddTagDialog
 
 class FragmentRecipeEditMain : Fragment() {
 
@@ -23,29 +25,17 @@ class FragmentRecipeEditMain : Fragment() {
     ): View? {
         val view: View = inflater.inflate(R.layout.fragment_recipe_edit_main, container, false)
 
-        //CHANGE SPINNER LISTENER
-        view.findViewById<Spinner>(R.id.editCategory).setOnItemSelectedListener(object :
-            AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parentView: AdapterView<*>?,
-                selectedItemView: View?,
-                position: Int,
-                id: Long
-            ) {
-                var icon = when(position){
-                    0 -> R.drawable.icon_breakfest
-                    1 -> R.drawable.icon_lunch
-                    2 -> R.drawable.icon_supper
-                    3 -> R.drawable.icon_dessert
-                    else -> R.drawable.icon_breakfest
-                }
-                view.findViewById<ImageView>(R.id.editIcon).setImageResource(icon)
-            }
+        val tagList = view.findViewById<RecyclerView>(R.id.editTagList)
+        // Set the adapter
+        with(tagList) {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            adapter = EditTagListAdapter()
+        }
 
-            override fun onNothingSelected(parentView: AdapterView<*>?) {
-                view.findViewById<ImageView>(R.id.editIcon).setImageResource(R.drawable.icon_breakfest)
-            }
-        })
+        view.findViewById<ImageButton>(R.id.editTagAddButton).setOnClickListener {
+            var dialog = editAddTagDialog(tagList)
+            dialog.show(parentFragmentManager, "Hello")
+        }
 
         return view
     }

@@ -11,7 +11,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:ems="10"
         android:gravity="start|top"
@@ -20,7 +20,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editCategory" />
+        app:layout_constraintTop_toBottomOf="@+id/editTagList" />
 
     <EditText
         android:id="@+id/editName"
@@ -37,15 +37,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/editIcon" />
 
-    <Spinner
-        android:id="@+id/editCategory"
-        android:layout_width="166dp"
-        android:layout_height="49dp"
-        android:layout_marginTop="16dp"
-        android:entries="@array/Categories"
-        app:layout_constraintStart_toStartOf="@+id/editIcon"
-        app:layout_constraintTop_toBottomOf="@+id/editIcon" />
-
     <ImageView
         android:id="@+id/editIcon"
         android:layout_width="wrap_content"
@@ -55,5 +46,27 @@
         android:src="@drawable/icon_breakfest"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/editTagList"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/editTagAddButton"
+        app:layout_constraintEnd_toStartOf="@+id/editTagAddButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/editTagAddButton"
+        tools:listitem="@layout/item_edit_tag" />
+
+    <ImageButton
+        android:id="@+id/editTagAddButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editIcon"
+        app:srcCompat="@android:drawable/ic_menu_add" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

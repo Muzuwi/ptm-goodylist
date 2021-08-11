@@ -26,8 +26,6 @@ class FragmentRecipeEditSteps : Fragment() {
         val view: View = inflater.inflate(R.layout.fragment_recipe_edit_steps, container, false)
         var stepsList = view.findViewById<RecyclerView>(R.id.EditStepsList)
 
-        println("Steps fragment created")
-
         // Set the adapter
         if (stepsList is RecyclerView) {
             with(stepsList) {
