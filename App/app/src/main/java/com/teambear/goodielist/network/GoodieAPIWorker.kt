@@ -11,7 +11,7 @@ import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import java.util.*
 
-class GoodieAPIWorker : IGoodieAPIWorker {
+object GoodieAPIWorker : IGoodieAPIWorker {
     override suspend fun RegisterUser(username: String, password: String): Boolean {
         var ret = false
         try {
