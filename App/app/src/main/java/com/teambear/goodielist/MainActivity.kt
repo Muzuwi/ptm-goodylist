@@ -114,14 +114,15 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         UserAccount.Init(applicationContext)
-        LocalRecipes.Init(applicationContext)
-        //TempTestUser()
 
         if(UserAccount.GetLocalUser() == null){
             //Go to login page
             val intent = Intent(this, LogInActivity::class.java)
             startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle())
+            finish()
         }
+
+        LocalRecipes.Init(applicationContext)
 
         binding = MainActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)

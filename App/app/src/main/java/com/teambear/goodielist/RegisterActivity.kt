@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
+import com.google.android.material.snackbar.Snackbar
 import com.teambear.goodielist.databinding.ActivityLogInPageBinding
 import com.teambear.goodielist.databinding.ActivityRegisterPageBinding
 import com.teambear.goodielist.network.GoodieAPIWorker
@@ -28,10 +29,18 @@ class RegisterActivity : AppCompatActivity() {
             val passwordConfirm = binding.registerPasswordConfirm.text.toString()
 
             if(password != passwordConfirm){
+                Snackbar.make(
+                    binding.root.rootView,
+                    "The passwords do not match",
+                    Snackbar.LENGTH_SHORT
+                ).show()
                 return@setOnClickListener
             }
 
             lifecycleScope.launch{
+                binding.registerUsername.isEnabled = false
+                binding.registerPassword.isEnabled = false
+                binding.registerPasswordConfirm.isEnabled = false
 
                 if(GoodieAPIWorker.RegisterUser(username, password))
                 {
@@ -46,12 +55,27 @@ class RegisterActivity : AppCompatActivity() {
                         )
                         //Go to main activity
                         val intent = Intent(context, MainActivity::class.java)
+                        finishAffinity()
                         startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(context).toBundle())
                     }
                     else{
+                        Snackbar.make(
+                            binding.root.rootView,
+                            "Account created successfully. Please log in.",
+                            Snackbar.LENGTH_SHORT
+                        ).show()
                         val intent = Intent(context, LogInActivity::class.java)
                         startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(context).toBundle())
                     }
+                } else {
+                    Snackbar.make(
+                        binding.root.rootView,
+                        "Username already in use",
+                        Snackbar.LENGTH_SHORT
+                    ).show()
+                    binding.registerUsername.isEnabled = true
+                    binding.registerPassword.isEnabled = true
+                    binding.registerPasswordConfirm.isEnabled = true
                 }
             }
         }

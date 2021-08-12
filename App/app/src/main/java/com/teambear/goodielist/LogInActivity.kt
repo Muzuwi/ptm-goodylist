@@ -19,6 +19,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
+import com.google.android.material.snackbar.Snackbar
 import com.teambear.goodielist.databinding.ActivityLogInPageBinding
 import com.teambear.goodielist.databinding.MainActivityBinding
 import com.teambear.goodielist.network.GoodieAPIWorker
@@ -47,7 +48,8 @@ class LogInActivity : AppCompatActivity() {
             val password = binding.logInPassword.text.toString()
 
             lifecycleScope.launch{
-
+                binding.logInUsername.isEnabled = false
+                binding.logInPassword.isEnabled = false
                 val token = GoodieAPIWorker.LoginUser(username, password)
 
                 if(token != null){  //Logged In
@@ -59,8 +61,17 @@ class LogInActivity : AppCompatActivity() {
                     )
                     //Go to main activity
                     val intent = Intent(context, MainActivity::class.java)
+                    finishAffinity()
                     startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(context).toBundle())
+                } else {
+                    Snackbar.make(
+                        binding.root.rootView,
+                        "Invalid username or password",
+                        Snackbar.LENGTH_SHORT
+                    ).show()
                 }
+                binding.logInUsername.isEnabled = true
+                binding.logInPassword.isEnabled = true
             }
         }
 
