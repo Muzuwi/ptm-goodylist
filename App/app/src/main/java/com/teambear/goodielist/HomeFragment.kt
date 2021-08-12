@@ -79,8 +79,8 @@ class HomeFragment : Fragment(), IRecipeClickListener {
                     Snackbar.make(requireView(), "Recipe deleted", Snackbar.LENGTH_SHORT).show()
 
                     listViewer = DummyRecipeListViewer(LocalRecipes)
-                    (requireView() as RecyclerView).adapter = RecipeListAdapter(listViewer, this)
-                    ((requireView() as RecyclerView).adapter as RecipeListAdapter).notifyDataSetChanged()
+                    (requireView().findViewById(R.id.homeRecipeList) as RecyclerView).adapter = RecipeListAdapter(listViewer, this)
+                    ((requireView().findViewById(R.id.homeRecipeList) as RecyclerView).adapter as RecipeListAdapter).notifyDataSetChanged()
                 } else {
                     Snackbar.make(requireView(), "Could not delete recipe", Snackbar.LENGTH_SHORT).show()
                 }
