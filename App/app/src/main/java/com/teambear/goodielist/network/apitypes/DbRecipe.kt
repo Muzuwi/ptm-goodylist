@@ -11,5 +11,5 @@ data class DbRecipe(
 
     val username: String,
 
-    val jsonString: String
+    val json: String
 )

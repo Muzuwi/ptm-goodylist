@@ -66,7 +66,7 @@ object GoodieAPIWorker : IGoodieAPIWorker {
             recipes = mutableListOf()
 
             for (entity in entities) {
-                recipes.add(Json.decodeFromString(entity.jsonString))
+                recipes.add(Json.decodeFromString(entity.json))
             }
         } catch(ex: Exception) {
             println("User recipe fetch failed: ${ex.message}")
@@ -79,12 +79,28 @@ object GoodieAPIWorker : IGoodieAPIWorker {
         var recipe: Recipe? = null
         try {
             var entity = GoodieREST.service.FetchRecipe(token, id)
-            recipe = Json.decodeFromString(entity.jsonString)
+            recipe = Json.decodeFromString(entity.json)
         } catch(ex: Exception) {
             println("User recipe id=${id} fetch failed: ${ex.message}")
         }
 
         return recipe
+    }
+
+    override suspend fun FetchRecentRecipes(token: UUID): List<Recipe>? {
+        var recipes: MutableList<Recipe>? = null
+        try {
+            val entities = GoodieREST.service.FetchRecentRecipes(token)
+
+            recipes = mutableListOf()
+            for (entity in entities) {
+                recipes.add(Json.decodeFromString(entity.json))
+            }
+        } catch(ex: Exception) {
+            println("User recent recipe fetch failed: ${ex.message}")
+        }
+
+        return recipes
     }
 
     override suspend fun CreateRecipe(token: UUID, recipe: Recipe): Boolean {

@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel.DataAnnotations;
 using GoodyAPI.Models;
 using GoodyAPI.Services.Concrete;
@@ -9,7 +10,7 @@ using Microsoft.Extensions.Logging;
 namespace GoodyAPI.Controllers
 {
     [ApiController]
-    [Route("api/v1/recipe/")]
+    [Route("api/v1/recipes/")]
     public class RecipeController : ControllerBase
     {
         private readonly ILogger<RecipeController> _logger;
@@ -17,29 +18,59 @@ namespace GoodyAPI.Controllers
 
         public RecipeController(ILogger<RecipeController> logger, IDbWorkerService worker)
         {
-            _logger = logger;
+            _logger = logger; 
             _dbWorkerService = worker;
         }
 
-
         [HttpGet]
-        [Route("fetchById")]
-        [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public ActionResult FetchById(FetchOneModel fetchOneModel)
+        [Route("id/{token}")]
+        public ActionResult GetById([FromHeader(Name = "X-User-Token")] Guid userToken, Guid recipeId)
         {
-            var session = SessionManager.GetSessionFor(fetchOneModel.Token);
+            _logger.Log(LogLevel.Information,userToken.ToString());
+            var session = SessionManager.GetSessionFor(userToken);
             if (session == null)
             {
                 return StatusCode(403);
             }
 
-            var recipe = _dbWorkerService.FetchRecipe(session.Username, fetchOneModel.RecipeId);
-            if (recipe == null)
+            var recipe = _dbWorkerService.FetchRecipeById(recipeId);
+            if (recipe != null)
             {
-                return NotFound();
+                return Ok(recipe);
+            }
+            
+            return NotFound();
+        }
+
+        [HttpGet]
+        [Route("new")]
+        public ActionResult GetByNew([FromHeader(Name = "X-User-Token")] Guid userToken)
+        {
+            _logger.Log(LogLevel.Information,userToken.ToString());
+            var session = SessionManager.GetSessionFor(userToken);
+            if (session == null)
+            {
+                return StatusCode(403);
             }
 
-            return Ok(recipe);
+            var recipes = _dbWorkerService.FetchRecentRecipes(100);
+            if (recipes != null)
+            {
+                _logger.Log(LogLevel.Information, $"Returning {recipes.Count} elements");
+                return Ok(recipes);
+            }
+
+            return BadRequest();
         }
+        
+        [HttpGet]
+        [Route("user")]
+        public ActionResult GetByUser([FromHeader(Name = "X-User-Token")] Guid userToken)
+        {
+            _logger.Log(LogLevel.Information,userToken.ToString());
+
+            return Ok();
+        }
+        
     }
 }

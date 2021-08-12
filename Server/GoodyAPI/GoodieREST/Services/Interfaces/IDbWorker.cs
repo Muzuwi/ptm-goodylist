@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using GoodyAPI.Models;
 
 namespace GoodyAPI.Services.Interfaces
@@ -8,6 +10,10 @@ namespace GoodyAPI.Services.Interfaces
         
         public UserData FetchUserData(string username);
 
-        public RecipeModel FetchRecipe(string username, int identifier);
+        public List<RecipeModel> FetchUserRecipes(string username);
+
+        public RecipeModel FetchRecipeById(Guid identifier);
+
+        public List<RecipeModel> FetchRecentRecipes(int count);
     }
 }

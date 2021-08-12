@@ -15,9 +15,9 @@ namespace GoodyAPI.Services.Concrete
             return Sessions.ContainsKey(userToken.Token);
         }
 
-        public static UserSession GetSessionFor(UserToken token)
+        public static UserSession GetSessionFor(Guid token)
         {
-            if (Sessions.TryGetValue(token.Token, out UserSession session))
+            if (Sessions.TryGetValue(token, out UserSession session))
             {
                 return session;
             }

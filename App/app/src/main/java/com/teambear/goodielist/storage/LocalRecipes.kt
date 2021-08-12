@@ -49,6 +49,7 @@ object LocalRecipes : IUserRecipeWorker {
             result.add(
                 Json.decodeFromString<Recipe>(entity.json)
             )
+            println(entity.json)
         }
 
         return result

@@ -81,5 +81,18 @@ namespace GoodyAPI.Controllers
             
             return Ok();
         }
+
+        [HttpPost]
+        [Route("validate/{id}")]
+        public ActionResult Validate(Guid id)
+        {
+            var session = SessionManager.GetSessionFor(id);
+            if (session == null)
+            {
+                return StatusCode(403);
+            }
+
+            return Ok();
+        }
     }
 }

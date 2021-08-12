@@ -19,8 +19,8 @@ interface GoodieRESTInterface {
     @POST("auth/login")
     suspend fun Login(@Body userLogin: UserLogin): UserToken
 
-    @POST("auth/validate")
-    suspend fun Validate(@Body token: UUID)
+    @POST("auth/validate/{id}")
+    suspend fun Validate(@Path("id") token: UUID)
 
     @POST("auth/logout")
     suspend fun Logout(@Body token: UUID)
@@ -45,8 +45,13 @@ interface GoodieRESTInterface {
         @Body recipe: DbRecipe
     )
 
-    @GET("user/recipes")
+    @GET("recipes/user")
     suspend fun FetchUserRecipes(
+        @Header("X-User-Token") token: UUID
+    ): List<DbRecipe>
+
+    @GET("recipes/new")
+    suspend fun FetchRecentRecipes(
         @Header("X-User-Token") token: UUID
     ): List<DbRecipe>
 

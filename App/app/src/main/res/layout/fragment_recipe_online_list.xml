@@ -26,19 +26,19 @@
             tools:layout_conversion_absoluteHeight="0dp"
             tools:layout_conversion_absoluteWidth="0dp">
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/onlineRecipeList"
+                android:layout_width="0dp"
+                android:layout_height="0dp">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
             <TextView
                 android:id="@+id/noRecipesOnlineText"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="No recipes found with the specified filter!"
                 android:visibility="gone" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/onlineRecipeList"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-            </androidx.recyclerview.widget.RecyclerView>
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     </FrameLayout>

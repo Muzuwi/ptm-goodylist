@@ -14,6 +14,8 @@ interface IGoodieAPIWorker {
 
     suspend fun FetchRecipe(token: UUID, recipe: UUID): Recipe?
 
+    suspend fun FetchRecentRecipes(token: UUID): List<Recipe>?
+
     suspend fun CreateRecipe(token: UUID, recipe: Recipe): Boolean
 
     suspend fun UpdateRecipe(token: UUID, recipe: Recipe): Boolean

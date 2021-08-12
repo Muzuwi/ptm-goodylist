@@ -41,6 +41,10 @@
         android:id="@+id/recipeOnlineListFragment"
         android:name="com.teambear.goodielist.RecipeOnlineListFragment"
         android:label="Browse public recipes"
-        tools:layout="@layout/fragment_recipe_online_list" />
+        tools:layout="@layout/fragment_recipe_online_list" >
+        <action
+            android:id="@+id/action_recipeOnlineListFragment_to_recipeViewFragment"
+            app:destination="@id/recipeViewFragment" />
+    </fragment>
 
 </navigation>
