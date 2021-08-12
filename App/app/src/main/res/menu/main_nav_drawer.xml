@@ -8,5 +8,9 @@
             android:id="@+id/recipeListFragment"
             android:icon="@drawable/ic_menu_camera"
             android:title="@string/menu_home" />
+        <item
+            android:id="@+id/recipeOnlineListFragment"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="@string/browse_online" />
     </group>
 </menu>

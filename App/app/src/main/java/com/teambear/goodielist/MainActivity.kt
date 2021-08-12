@@ -143,7 +143,7 @@ class MainActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.recipeListFragment
+                R.id.recipeListFragment, R.id.recipeOnlineListFragment
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
