@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.teambear.goodielist.interfaces.IRecipeClickListener
 import com.teambear.goodielist.adapters.RecipeListAdapter
+import com.teambear.goodielist.models.ParcelRecipe
 import com.teambear.goodielist.models.Recipe
 import com.teambear.goodielist.storage.LocalRecipes
 import com.teambear.goodielist.workers.DummyRecipeListViewer
@@ -53,7 +54,7 @@ class RecipeListFragment : Fragment(), IRecipeClickListener {
         System.out.println("Clicked on recipe id=" + recipe.id.toString());
         val nav = findNavController()
         val recipeListFragmentToRecipeViewFragment =
-            HomeFragmentDirections.recipeListFragmentToRecipeViewFragment(ParcelUuid(recipe.id))
+            HomeFragmentDirections.recipeListFragmentToRecipeViewFragment(ParcelRecipe(recipe))
         nav.navigate(recipeListFragmentToRecipeViewFragment);
     }
 

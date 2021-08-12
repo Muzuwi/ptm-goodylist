@@ -23,8 +23,8 @@
         android:label="Details"
         tools:layout="@layout/fragment_recipe_view">
         <argument
-            android:name="id"
-            app:argType="android.os.ParcelUuid" />
+            android:name="recipe"
+            app:argType="com.teambear.goodielist.models.ParcelRecipe" />
     </fragment>
     <fragment
         android:id="@+id/fragmentRecipeEdit"

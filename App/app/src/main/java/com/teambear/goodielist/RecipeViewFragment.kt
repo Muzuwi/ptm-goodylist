@@ -16,8 +16,7 @@ import com.teambear.goodielist.models.RecipeCategory
 import com.teambear.goodielist.storage.LocalRecipes
 import java.text.SimpleDateFormat
 import android.text.method.ScrollingMovementMethod
-
-
+import com.teambear.goodielist.models.ParcelRecipe
 
 
 class RecipeViewFragment : Fragment() {
@@ -59,7 +58,7 @@ class RecipeViewFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val recipe = LocalRecipes.GetRecipeByUUID(args.id.uuid) ?: return
+        val recipe = ParcelRecipe.deparcelize(args.recipe)
 
         //Recipe name
         view.findViewById<TextView>(R.id.DetailsName).text = recipe.name
