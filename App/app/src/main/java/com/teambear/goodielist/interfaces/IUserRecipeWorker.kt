@@ -8,6 +8,8 @@ interface IUserRecipeWorker {
 
     fun GetAllRecipes(): List<Recipe>?
 
+    fun GetRecipesByName(name: String): List<Recipe>?
+
     fun GetRecipeCount(): Int
 
     fun UpdateRecipe(id: UUID, newRecipe: Recipe): Boolean

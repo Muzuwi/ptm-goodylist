@@ -11,6 +11,9 @@ internal interface RecipeDao {
     @Query("SELECT * FROM RecipeEntity WHERE id = :targetID")
     fun GetEntityByID(targetID: UUID): RecipeEntity?
 
+    @Query("SELECT * FROM RecipeEntity WHERE json LIKE :name")
+    fun GetEntitiesByJson(name: String): List<RecipeEntity>?
+
     @Insert
     fun InsertEntity(recipeEntity: RecipeEntity)
 

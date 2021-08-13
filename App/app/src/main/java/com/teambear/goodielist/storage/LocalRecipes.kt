@@ -61,6 +61,20 @@ object LocalRecipes : IUserRecipeWorker {
         return Json.decodeFromString<Recipe>(entity.json)
     }
 
+    private fun GetLocalRecipesByName(name: String): List<Recipe>? {
+        val entities = database.recipeDao().GetEntitiesByJson("%\"name\":\"${name}%") ?: return null
+
+        var result = mutableListOf<Recipe>()
+        for (entity in entities) {
+            result.add(
+                Json.decodeFromString<Recipe>(entity.json)
+            )
+            println(entity.json)
+        }
+
+        return result
+    }
+
     private fun UpdateLocalRecipe(id: UUID, recipe: Recipe): Boolean {
         val json = Json.encodeToString(recipe)
         val newEntity = RecipeEntity(id, recipe.username, json)
@@ -98,6 +112,10 @@ object LocalRecipes : IUserRecipeWorker {
     override fun GetRecipeCount(): Int {
         //  FIXME: Podmienić na coś innego zamiast ładować całą bazę znowu
         return GetLocalRecipes()?.size ?: 0
+    }
+
+    override fun GetRecipesByName(name: String): List<Recipe>? {
+        return GetLocalRecipesByName(name)
     }
 
     override fun UpdateRecipe(id: UUID, newRecipe: Recipe): Boolean {

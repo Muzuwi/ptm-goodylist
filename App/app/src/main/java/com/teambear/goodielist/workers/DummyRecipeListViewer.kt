@@ -5,10 +5,11 @@ import com.teambear.goodielist.interfaces.IUserRecipeWorker
 import com.teambear.goodielist.models.Recipe
 
 class DummyRecipeListViewer (
-    val recipeWorker: IUserRecipeWorker
+    val recipeWorker: IUserRecipeWorker,
+    val searchName: String?
     ) : IRecipeListViewer {
 
-    val allRecipes = recipeWorker.GetAllRecipes()
+    val allRecipes = GetResultToDisp(searchName)
 
     override fun GetItemCount(): Int {
         allRecipes ?: return 0
@@ -23,5 +24,10 @@ class DummyRecipeListViewer (
             return null
         }
         return allRecipes[position]
+    }
+
+    fun GetResultToDisp(name: String?): List<Recipe>? {
+        name ?: return recipeWorker.GetAllRecipes()
+        return recipeWorker.GetRecipesByName(name)
     }
 }

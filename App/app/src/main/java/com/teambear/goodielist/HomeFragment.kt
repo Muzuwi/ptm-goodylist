@@ -1,11 +1,14 @@
 package com.teambear.goodielist
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.os.ParcelUuid
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.PopupMenu
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -27,12 +30,13 @@ class HomeFragment : Fragment(), IRecipeClickListener {
     private lateinit var homeViewModel: HomeViewModel
     private var _binding: FragmentHomeBinding? = null
     private var columnCount = 1
-    private var listViewer: DummyRecipeListViewer = DummyRecipeListViewer(LocalRecipes)
+    private var listViewer: DummyRecipeListViewer = DummyRecipeListViewer(LocalRecipes, null)
 
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -40,7 +44,7 @@ class HomeFragment : Fragment(), IRecipeClickListener {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
         val listener = this
-        listViewer = DummyRecipeListViewer(LocalRecipes)
+        listViewer = DummyRecipeListViewer(LocalRecipes, null)
 
         // Set the adapter
         with(view.findViewById<RecyclerView>(R.id.homeRecipeList)) {
@@ -49,6 +53,29 @@ class HomeFragment : Fragment(), IRecipeClickListener {
                 else -> GridLayoutManager(context, columnCount)
             }
             adapter = RecipeListAdapter(listViewer, listener)
+        }
+
+        view.findViewById<EditText>(R.id.homeSearchName).addTextChangedListener {
+
+
+            if(view.findViewById<EditText>(R.id.homeSearchName).text.isEmpty() ){
+                listViewer = DummyRecipeListViewer(LocalRecipes, null)
+            }
+            else {
+                val searchName = view.findViewById<EditText>(R.id.homeSearchName).text.toString()
+                listViewer = DummyRecipeListViewer(LocalRecipes, searchName)
+
+            }
+
+            // Set the adapter
+            with(view.findViewById<RecyclerView>(R.id.homeRecipeList)) {
+                layoutManager = when {
+                    columnCount <= 1 -> LinearLayoutManager(context)
+                    else -> GridLayoutManager(context, columnCount)
+                }
+                adapter = RecipeListAdapter(listViewer, listener)
+            }
+            view.findViewById<RecyclerView>(R.id.homeRecipeList).adapter?.notifyDataSetChanged()
         }
 
         return view
@@ -78,7 +105,7 @@ class HomeFragment : Fragment(), IRecipeClickListener {
                 if(ret) {
                     Snackbar.make(requireView(), "Recipe deleted", Snackbar.LENGTH_SHORT).show()
 
-                    listViewer = DummyRecipeListViewer(LocalRecipes)
+                    listViewer = DummyRecipeListViewer(LocalRecipes, null)
                     (requireView().findViewById(R.id.homeRecipeList) as RecyclerView).adapter = RecipeListAdapter(listViewer, this)
                     ((requireView().findViewById(R.id.homeRecipeList) as RecyclerView).adapter as RecipeListAdapter).notifyDataSetChanged()
                 } else {
