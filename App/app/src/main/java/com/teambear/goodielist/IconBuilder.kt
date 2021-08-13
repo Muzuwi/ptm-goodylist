@@ -1,7 +1,5 @@
 package com.teambear.goodielist
 
-import com.teambear.goodielist.models.Recipe
-
 object IconBuilder {
     val iconHashMap = hashMapOf<String, Int>(
         "unknown"   to R.drawable.icon_unknown,
@@ -15,7 +13,7 @@ object IconBuilder {
         "dessert"   to R.drawable.icon_dessert,
     )
 
-    fun getIconIdByTags(tagList: List<String>): Int{
+    fun getIconId(tagList: List<String>): Int{
         val relatedTags = mutableListOf<String>()
         for (tag in tagList) {
             if(iconHashMap.containsKey(tag)) relatedTags.add(tag);
@@ -26,5 +24,11 @@ object IconBuilder {
             1 -> return iconHashMap[relatedTags[0]]!!
             else -> return iconHashMap["multi"]!!
         }
+    }
+
+    fun getIconId(tag: String): Int{
+        if(iconHashMap.containsKey(tag))
+            return iconHashMap[tag]!!
+        return iconHashMap["unknown"]!!
     }
 }

@@ -1,6 +1,5 @@
 package com.teambear.goodielist.adapters
 
-import android.graphics.Color
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -8,10 +7,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.teambear.goodielist.IconBuilder
-import com.teambear.goodielist.R
 
 import com.teambear.goodielist.databinding.FragmentRecipeListItemBinding
-import com.teambear.goodielist.models.RecipeCategory
 import com.teambear.goodielist.interfaces.IRecipeClickListener
 import com.teambear.goodielist.interfaces.IRecipeListViewer
 import com.teambear.goodielist.models.Recipe
@@ -64,7 +61,7 @@ class RecipeListAdapter(
             val simpleDateFormat = SimpleDateFormat("dd-MM-yyyy")
             dateView.text = simpleDateFormat.format(recipe.created)
 
-            val icon = IconBuilder.getIconIdByTags(recipe.tags)
+            val icon = IconBuilder.getIconId(recipe.tags)
             iconView.setImageResource(icon)
         }
 

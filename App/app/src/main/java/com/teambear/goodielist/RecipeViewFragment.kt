@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.teambear.goodielist.adapters.DisplayTagListAdapter
 import com.teambear.goodielist.adapters.DisplayTextViewListAdapter
-import com.teambear.goodielist.models.RecipeCategory
 import java.text.SimpleDateFormat
 import android.text.method.ScrollingMovementMethod
 import com.teambear.goodielist.models.ParcelRecipe
@@ -79,7 +78,7 @@ class RecipeViewFragment : Fragment() {
         (tagList.adapter as DisplayTagListAdapter).setItemList(recipe.tags)
 
         //Icon
-        val icon = IconBuilder.getIconIdByTags(recipe.tags)
+        val icon = IconBuilder.getIconId(recipe.tags)
         view.findViewById<ImageView>(R.id.DetailsIcon).setImageResource(icon)
 
         //Ingredients

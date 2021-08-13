@@ -31,7 +31,7 @@ class EditTagListAdapter (iconAccess: View) : RecyclerView.Adapter<EditTagListAd
         holder.deleteButton.setOnClickListener {
             itemList.removeAt(position)
             notifyDataSetChanged()
-            val icon = IconBuilder.getIconIdByTags(itemList)
+            val icon = IconBuilder.getIconId(itemList)
             iconAccessView.findViewById<ImageView>(R.id.editIcon).setImageResource(icon)
         }
 
