@@ -8,13 +8,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.RecyclerView
+import com.teambear.goodielist.IconBuilder
 import com.teambear.goodielist.R
 import com.teambear.goodielist.adapters.EditTagListAdapter
 
-class editAddTagDialog(val tagList: RecyclerView) : DialogFragment() {
+class editAddTagDialog(val iconAccessView: View, val tagList: RecyclerView) : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         super.onCreateDialog(savedInstanceState)
@@ -31,6 +33,8 @@ class editAddTagDialog(val tagList: RecyclerView) : DialogFragment() {
                         var newTag = view.findViewById<EditText>(R.id.editDialogNewTag).text.toString()
                         (tagList.adapter as EditTagListAdapter).addNewItem(newTag)
                         (tagList.adapter as EditTagListAdapter).notifyDataSetChanged()
+                        val icon = IconBuilder.getIconIdByTags((tagList.adapter as EditTagListAdapter).itemList)
+                        iconAccessView.findViewById<ImageView>(R.id.editIcon).setImageResource(icon)
                     })
                 .setNegativeButton("Cancel",
                     DialogInterface.OnClickListener { dialog, id ->

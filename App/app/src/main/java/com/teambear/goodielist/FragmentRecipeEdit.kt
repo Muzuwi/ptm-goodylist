@@ -47,6 +47,8 @@ class FragmentRecipeEdit : Fragment(), IRecipeEditViewCreated {
         val tabLayout = view.findViewById<TabLayout>(R.id.editTabLayout)
         tabLayout.setupWithViewPager(viewPager)
 
+
+
         //SAVE BUTTON LISTENER
         view.findViewById<Button>(R.id.EditSaveButton).setOnClickListener {
             val recipe = createRecipeFromFragment()

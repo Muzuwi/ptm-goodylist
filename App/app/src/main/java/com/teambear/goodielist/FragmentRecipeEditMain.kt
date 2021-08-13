@@ -32,12 +32,12 @@ class FragmentRecipeEditMain(
         // Set the adapter
         with(tagList) {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            adapter = EditTagListAdapter()
+            adapter = EditTagListAdapter(view)
         }
 
         view.findViewById<ImageButton>(R.id.editTagAddButton).setOnClickListener {
-            var dialog = editAddTagDialog(tagList)
-            dialog.show(parentFragmentManager, "Hello")
+            var dialog = editAddTagDialog(view, tagList)
+            dialog.show(parentFragmentManager, "Add new tag")
         }
 
         return view

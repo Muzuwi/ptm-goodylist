@@ -15,9 +15,9 @@ object IconBuilder {
         "dessert"   to R.drawable.icon_dessert,
     )
 
-    fun getIconIdByTags(recipe: Recipe): Int{
+    fun getIconIdByTags(tagList: List<String>): Int{
         val relatedTags = mutableListOf<String>()
-        for (tag in recipe.tags) {
+        for (tag in tagList) {
             if(iconHashMap.containsKey(tag)) relatedTags.add(tag);
         }
 

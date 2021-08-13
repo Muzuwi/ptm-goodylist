@@ -79,13 +79,7 @@ class RecipeViewFragment : Fragment() {
         (tagList.adapter as DisplayTagListAdapter).setItemList(recipe.tags)
 
         //Icon
-        //TODO: Uzaleznij od tagów nie kategorii
-        val icon = when(recipe.category){
-            RecipeCategory.BREAKFAST -> R.drawable.icon_breakfest
-            RecipeCategory.LUNCH -> R.drawable.icon_lunch
-            RecipeCategory.SUPPER -> R.drawable.icon_supper
-            RecipeCategory.DESSERT -> R.drawable.icon_dessert_old
-        }
+        val icon = IconBuilder.getIconIdByTags(recipe.tags)
         view.findViewById<ImageView>(R.id.DetailsIcon).setImageResource(icon)
 
         //Ingredients
