@@ -25,7 +25,7 @@ class editAddTagDialog(val tagList: RecyclerView) : DialogFragment() {
             // Use the Builder class for convenient dialog construction
             val builder = AlertDialog.Builder(it)
             builder.setView(view)
-            builder.setMessage("Hello")
+            builder.setMessage("Add new tag")
                 .setPositiveButton("Add",
                     DialogInterface.OnClickListener { dialog, id ->
                         var newTag = view.findViewById<EditText>(R.id.editDialogNewTag).text.toString()

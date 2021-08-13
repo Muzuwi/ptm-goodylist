@@ -1,12 +1,10 @@
 package com.teambear.goodielist.adapters
 
-import android.graphics.Color
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.PopupMenu
 import android.widget.TextView
 import com.teambear.goodielist.R
 
@@ -68,7 +66,7 @@ class RecipeListAdapter(
                 RecipeCategory.BREAKFAST -> R.drawable.icon_breakfest
                 RecipeCategory.LUNCH -> R.drawable.icon_lunch
                 RecipeCategory.SUPPER -> R.drawable.icon_supper
-                RecipeCategory.DESSERT -> R.drawable.icon_dessert
+                RecipeCategory.DESSERT -> R.drawable.icon_dessert_old
             }
             iconView.setImageResource(icon)
 

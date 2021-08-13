@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.teambear.goodielist.adapters.DisplayTagListAdapter
 import com.teambear.goodielist.adapters.DisplayTextViewListAdapter
 import com.teambear.goodielist.models.RecipeCategory
-import com.teambear.goodielist.storage.LocalRecipes
 import java.text.SimpleDateFormat
 import android.text.method.ScrollingMovementMethod
 import com.teambear.goodielist.models.ParcelRecipe
@@ -85,7 +84,7 @@ class RecipeViewFragment : Fragment() {
             RecipeCategory.BREAKFAST -> R.drawable.icon_breakfest
             RecipeCategory.LUNCH -> R.drawable.icon_lunch
             RecipeCategory.SUPPER -> R.drawable.icon_supper
-            RecipeCategory.DESSERT -> R.drawable.icon_dessert
+            RecipeCategory.DESSERT -> R.drawable.icon_dessert_old
         }
         view.findViewById<ImageView>(R.id.DetailsIcon).setImageResource(icon)
 
