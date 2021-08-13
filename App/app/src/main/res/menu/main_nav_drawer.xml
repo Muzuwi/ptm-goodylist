@@ -5,12 +5,16 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/profileFragment"
+            android:icon="@drawable/icon_profile"
+            android:title="Profile" />
+        <item
             android:id="@+id/recipeListFragment"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="@string/menu_home" />
+            android:icon="@drawable/icon_list"
+            android:title="Local Recipes" />
         <item
             android:id="@+id/recipeOnlineListFragment"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/icon_online"
             android:title="@string/browse_online" />
     </group>
 </menu>

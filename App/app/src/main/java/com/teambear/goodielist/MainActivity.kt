@@ -3,10 +3,7 @@ package com.teambear.goodielist
 import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
-import android.os.ParcelUuid
-import android.view.ContextMenu
 import android.view.Menu
-import android.view.MenuInflater
 import android.view.View
 import android.widget.TextView
 import com.google.android.material.navigation.NavigationView
@@ -17,21 +14,9 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
-import com.google.android.material.snackbar.Snackbar
 import com.teambear.goodielist.databinding.MainActivityBinding
-import com.teambear.goodielist.models.Recipe
-import com.teambear.goodielist.models.RecipeCategory
-import com.teambear.goodielist.network.GoodieAPIWorker
-import com.teambear.goodielist.network.GoodieREST
-import com.teambear.goodielist.network.User
 import com.teambear.goodielist.network.UserAccount
-import com.teambear.goodielist.network.apitypes.UserLogin
 import com.teambear.goodielist.storage.LocalRecipes
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
-import java.lang.Exception
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
@@ -143,7 +128,7 @@ class MainActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.recipeListFragment, R.id.recipeOnlineListFragment
+                R.id.recipeListFragment, R.id.profileFragment
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)

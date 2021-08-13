@@ -29,22 +29,27 @@
     <fragment
         android:id="@+id/fragmentRecipeEdit"
         android:name="com.teambear.goodielist.FragmentRecipeEdit"
-        android:label="fragment_recipe_edit"
-        tools:layout="@layout/fragment_recipe_edit" >
+        android:label="Edit Recipe"
+        tools:layout="@layout/fragment_recipe_edit">
         <argument
             android:name="id"
+            android:defaultValue="@null"
             app:argType="android.os.ParcelUuid"
-            app:nullable="true"
-            android:defaultValue="@null" />
+            app:nullable="true" />
     </fragment>
     <fragment
         android:id="@+id/recipeOnlineListFragment"
         android:name="com.teambear.goodielist.RecipeOnlineListFragment"
         android:label="Browse public recipes"
-        tools:layout="@layout/fragment_recipe_online_list" >
+        tools:layout="@layout/fragment_recipe_online_list">
         <action
             android:id="@+id/action_recipeOnlineListFragment_to_recipeViewFragment"
             app:destination="@id/recipeViewFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.teambear.goodielist.ProfileFragment"
+        android:label="Profile"
+        tools:layout="@layout/fragment_profile" />
 
 </navigation>
