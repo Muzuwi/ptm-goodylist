@@ -8,6 +8,7 @@ import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import java.util.*
+import kotlin.collections.HashMap
 
 object LocalRecipes : IUserRecipeWorker {
     private lateinit var database: RecipeDatabase
@@ -53,6 +54,17 @@ object LocalRecipes : IUserRecipeWorker {
         }
 
         return result
+    }
+
+    private fun GetLocalTagList(tagList: List<Recipe>): HashMap<String, Int>{
+        var result: MutableMap<String, Int> = mutableMapOf<String, Int>()
+        tagList.forEach {
+            it.tags.forEach {
+                if(!result.contains(it)) result[it] = 1
+                else result[it] = (result[it]!! + 1)
+            }
+        }
+        return result as HashMap<String, Int>
     }
 
     private fun GetLocalRecipeByID(id: UUID): Recipe? {
@@ -128,5 +140,9 @@ object LocalRecipes : IUserRecipeWorker {
 
     override fun DeleteRecipe(id: UUID): Boolean {
         return DeleteLocalRecipe(id)
+    }
+
+    public fun GetTagList(): HashMap<String, Int>? {
+        return GetAllRecipes()?.let { GetLocalTagList(it) }
     }
 }

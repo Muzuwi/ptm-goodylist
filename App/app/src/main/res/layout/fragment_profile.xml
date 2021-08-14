@@ -82,5 +82,27 @@
             android:text="Recipes saved: 0"
             app:layout_constraintStart_toStartOf="@+id/profileCreationDate"
             app:layout_constraintTop_toBottomOf="@+id/profileCreationDate" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/statTagList"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profileRecipesSaved"
+            tools:listitem="@layout/item_statistics_tag" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tag uses:"
+            app:layout_constraintBottom_toTopOf="@+id/statTagList"
+            app:layout_constraintStart_toStartOf="@+id/statTagList" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

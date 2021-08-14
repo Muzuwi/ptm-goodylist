@@ -7,6 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.teambear.goodielist.adapters.EditTagListAdapter
+import com.teambear.goodielist.adapters.StatisticTagListAdapter
 import com.teambear.goodielist.network.UserAccount
 import com.teambear.goodielist.storage.LocalRecipes
 
@@ -23,12 +27,16 @@ class ProfileFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_profile, container, false)
 
-
+        val tagList = view.findViewById<RecyclerView>(R.id.statTagList)
+        // Set the adapter
+        with(tagList) {
+            layoutManager = LinearLayoutManager(context)
+            adapter = StatisticTagListAdapter()
+        }
 
         return view
     }
 
-    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -41,5 +49,9 @@ class ProfileFragment : Fragment() {
             view.findViewById<TextView>(R.id.profileRecipesSaved).text = "Recipes saved: ${LocalRecipes.GetRecipeCount()}"
         }
 
+        val tagListAdapter = view.findViewById<RecyclerView>(R.id.statTagList).adapter
+
+        LocalRecipes.GetTagList()?.let { (tagListAdapter as StatisticTagListAdapter).setItemList(it) }
+        (tagListAdapter as StatisticTagListAdapter).notifyDataSetChanged()
     }
 }
