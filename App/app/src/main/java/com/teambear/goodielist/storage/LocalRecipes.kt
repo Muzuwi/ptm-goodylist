@@ -3,7 +3,6 @@ import android.content.Context
 import androidx.room.Room
 import com.teambear.goodielist.interfaces.IUserRecipeWorker
 import com.teambear.goodielist.models.Recipe
-import com.teambear.goodielist.models.RecipeCategory
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
@@ -26,20 +25,21 @@ object LocalRecipes : IUserRecipeWorker {
     }
 
     private fun CreateDummyEntries() {
-        var recipes = listOf(
-            Recipe(UUID.randomUUID(), "test", Calendar.getInstance().getTime(),"Costam", RecipeCategory.BREAKFAST, listOf(), listOf(), "Pyszne śniadanie", listOf()),
-            Recipe(UUID.randomUUID(), "test", Calendar.getInstance().getTime(),"Obiadek", RecipeCategory.LUNCH, listOf(), listOf(), "Pyszny obiadek", listOf()),
-            Recipe(UUID.randomUUID(), "test", Calendar.getInstance().getTime(),"Wieczorne klimaty", RecipeCategory.SUPPER, listOf(), listOf(), "Cos na zapchanie", listOf()),
-            Recipe(UUID.randomUUID(), "test", Calendar.getInstance().getTime(),"Deserowy czerwiec", RecipeCategory.DESSERT, listOf(), listOf(), "woooo! yeah!", listOf()),
-            Recipe(UUID.randomUUID(), "test", Calendar.getInstance().getTime(),"Shokugeki no Soma", RecipeCategory.LUNCH, listOf(), listOf(), "oppai", listOf()),
-        )
-        for (recipe in recipes) {
-            System.out.println("Dodawanie przepisu " + recipe.id.toString())
-            val json = Json.encodeToString(recipe)
-            val newEntity = RecipeEntity(recipe.id, recipe.username, json)
-
-            database.recipeDao().InsertEntity(newEntity)
-        }
+        return
+//        var recipes = listOf(
+//            Recipe(UUID.randomUUID(), "test", System.currentTimeMillis() / 1000L,"Costam", RecipeCategory.BREAKFAST, listOf(), listOf(), "Pyszne śniadanie", listOf()),
+//            Recipe(UUID.randomUUID(), "test", System.currentTimeMillis() / 1000L,"Obiadek", RecipeCategory.LUNCH, listOf(), listOf(), "Pyszny obiadek", listOf()),
+//            Recipe(UUID.randomUUID(), "test", System.currentTimeMillis() / 1000L,"Wieczorne klimaty", RecipeCategory.SUPPER, listOf(), listOf(), "Cos na zapchanie", listOf()),
+//            Recipe(UUID.randomUUID(), "test", System.currentTimeMillis() / 1000L,"Deserowy czerwiec", RecipeCategory.DESSERT, listOf(), listOf(), "woooo! yeah!", listOf()),
+//            Recipe(UUID.randomUUID(), "test", System.currentTimeMillis() / 1000L,"Shokugeki no Soma", RecipeCategory.LUNCH, listOf(), listOf(), "oppai", listOf()),
+//        )
+//        for (recipe in recipes) {
+//            System.out.println("Dodawanie przepisu " + recipe.id.toString())
+//            val json = Json.encodeToString(recipe)
+//            val newEntity = RecipeEntity(recipe.id, recipe.username, json)
+//
+//            database.recipeDao().InsertEntity(newEntity)
+//        }
     }
 
     private fun GetLocalRecipes(): List<Recipe>? {
@@ -47,9 +47,7 @@ object LocalRecipes : IUserRecipeWorker {
 
         var result = mutableListOf<Recipe>()
         for (entity in entities) {
-            result.add(
-                Json.decodeFromString<Recipe>(entity.json)
-            )
+            result.add(RecipeEntity.toRecipe(entity))
             println(entity.json)
         }
 
@@ -70,7 +68,7 @@ object LocalRecipes : IUserRecipeWorker {
     private fun GetLocalRecipeByID(id: UUID): Recipe? {
         val entity = database.recipeDao().GetEntityByID(id) ?: return null
 
-        return Json.decodeFromString<Recipe>(entity.json)
+        return RecipeEntity.toRecipe(entity)
     }
 
     private fun GetLocalRecipesByName(name: String): List<Recipe>? {
@@ -78,9 +76,7 @@ object LocalRecipes : IUserRecipeWorker {
 
         var result = mutableListOf<Recipe>()
         for (entity in entities) {
-            result.add(
-                Json.decodeFromString<Recipe>(entity.json)
-            )
+            result.add(RecipeEntity.toRecipe(entity))
             println(entity.json)
         }
 
@@ -88,18 +84,16 @@ object LocalRecipes : IUserRecipeWorker {
     }
 
     private fun UpdateLocalRecipe(id: UUID, recipe: Recipe): Boolean {
-        val json = Json.encodeToString(recipe)
-        val newEntity = RecipeEntity(id, recipe.username, json)
+        val entity = RecipeEntity.fromRecipe(recipe)
 
-        database.recipeDao().UpdateEntity(newEntity)
+        database.recipeDao().UpdateEntity(entity)
         return true
     }
 
     private fun InsertLocalRecipe(newRecipe: Recipe): Boolean {
-        val json = Json.encodeToString(newRecipe)
-        val newEntity = RecipeEntity(newRecipe.id, newRecipe.username, json)
+        val entity = RecipeEntity.fromRecipe(newRecipe)
 
-        database.recipeDao().InsertEntity(newEntity)
+        database.recipeDao().InsertEntity(entity)
         return true
     }
 

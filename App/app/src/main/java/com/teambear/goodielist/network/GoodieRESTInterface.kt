@@ -2,10 +2,7 @@ package com.teambear.goodielist.network
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.teambear.goodielist.models.Recipe
-import com.teambear.goodielist.network.apitypes.DbRecipe
-import com.teambear.goodielist.network.apitypes.RegisterInfo
-import com.teambear.goodielist.network.apitypes.UserLogin
-import com.teambear.goodielist.network.apitypes.UserToken
+import com.teambear.goodielist.network.apitypes.*
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType
 import retrofit2.Retrofit
@@ -25,29 +22,36 @@ interface GoodieRESTInterface {
     @POST("auth/logout")
     suspend fun Logout(@Body token: UUID)
 
-    @GET("recipes/{id}")
+    @GET("recipes/id/{id}")
     suspend fun FetchRecipe(
         @Header("X-User-Token") token: UUID,
         @Path("id") id: UUID
     ): DbRecipe
 
-    @POST("recipes/{id}")
+    @POST("recipes/id/{id}")
     suspend fun CreateRecipe(
         @Header("X-User-Token") token: UUID,
         @Path("id") id: UUID,
-        @Body recipe: DbRecipe
+        @Body updateInfo: RecipeUpdateInfo
     )
 
-    @PUT("recipes/{id}")
+    @PUT("recipes/id/{id}")
     suspend fun UpdateRecipe(
         @Header("X-User-Token") token: UUID,
         @Path("id") id: UUID,
-        @Body recipe: DbRecipe
+        @Body updateInfo: RecipeUpdateInfo
     )
 
-    @GET("recipes/user")
+    @DELETE("recipes/id/{id}")
+    suspend fun DeleteRecipe(
+        @Header("X-User-Token") token: UUID,
+        @Path("id") id: UUID
+    )
+
+    @GET("recipes/user/{username}")
     suspend fun FetchUserRecipes(
-        @Header("X-User-Token") token: UUID
+        @Header("X-User-Token") token: UUID,
+        @Path("username") username: String
     ): List<DbRecipe>
 
     @GET("recipes/new")

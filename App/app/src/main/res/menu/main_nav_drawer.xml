@@ -7,14 +7,18 @@
         <item
             android:id="@+id/profileFragment"
             android:icon="@drawable/icon_profile"
-            android:title="Profile" />
+            android:title="@string/profile" />
         <item
             android:id="@+id/recipeListFragment"
             android:icon="@drawable/icon_list"
-            android:title="Local Recipes" />
+            android:title="@string/local_recipes" />
         <item
             android:id="@+id/recipeOnlineListFragment"
             android:icon="@drawable/icon_online"
             android:title="@string/browse_online" />
+        <item
+            android:id="@+id/recipeYourPublishedFragment"
+            android:icon="@drawable/icon_online"
+            android:title="@string/your_published_recipes" />
     </group>
 </menu>

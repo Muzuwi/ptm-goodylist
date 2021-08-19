@@ -58,8 +58,8 @@ class RecipeListAdapter(
             nameView.text = recipe.name
             userView.text = recipe.username
 
-            val simpleDateFormat = SimpleDateFormat("dd-MM-yyyy")
-            dateView.text = simpleDateFormat.format(recipe.created)
+            val dateTime = SimpleDateFormat.getDateTimeInstance()
+            dateView.text = dateTime.format(Date(recipe.created * 1000L))
 
             val icon = IconBuilder.getIconId(recipe.tags)
             iconView.setImageResource(icon)

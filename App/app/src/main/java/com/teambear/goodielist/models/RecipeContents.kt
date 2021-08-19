@@ -1,14 +1,9 @@
 package com.teambear.goodielist.models
 
-import java.util.*
+import kotlinx.serialization.Serializable
 
-data class Recipe (
-    var id: UUID,
-
-    var username: String,
-
-    var created: Long,
-
+@Serializable
+data class RecipeContents(
     var name: String,
 
     var tags: List<String>,

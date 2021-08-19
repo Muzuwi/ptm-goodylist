@@ -20,6 +20,8 @@ interface IGoodieAPIWorker {
 
     suspend fun UpdateRecipe(token: UUID, recipe: Recipe): Boolean
 
-    suspend fun FetchUserRecipes(token: UUID): List<Recipe>?
+    suspend fun DeleteRecipe(token: UUID, recipeId: UUID): Boolean
+
+    suspend fun FetchUserRecipes(token: UUID, username: String): List<Recipe>?
 
 }

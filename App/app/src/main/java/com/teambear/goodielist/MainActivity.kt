@@ -15,8 +15,10 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.teambear.goodielist.databinding.MainActivityBinding
+import com.teambear.goodielist.network.GoodieAPIWorker
 import com.teambear.goodielist.network.UserAccount
 import com.teambear.goodielist.storage.LocalRecipes
+import kotlinx.coroutines.runBlocking
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
@@ -100,11 +102,25 @@ class MainActivity : AppCompatActivity() {
 
         UserAccount.Init(applicationContext)
 
-        if(UserAccount.GetLocalUser() == null){
+        val user = UserAccount.GetLocalUser()
+        val app = this
+        if(user == null){
             //Go to login page
             val intent = Intent(this, LogInActivity::class.java)
             startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle())
             finish()
+        } else {
+            if(user.token != null) {
+                runBlocking {
+                    val ret = GoodieAPIWorker.ValidateToken(user.token)
+                    if(!ret) {
+                        //Go to login page on token expired
+                        val intent = Intent(app, LogInActivity::class.java)
+                        startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(app).toBundle())
+                        finish()
+                    }
+                }
+            }
         }
 
         LocalRecipes.Init(applicationContext)
@@ -128,7 +144,7 @@ class MainActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.recipeListFragment, R.id.profileFragment
+                R.id.profileFragment, R.id.recipeListFragment, R.id.recipeOnlineListFragment, R.id.recipeYourPublishedFragment
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)

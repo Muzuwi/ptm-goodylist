@@ -6,4 +6,7 @@
     <item
         android:id="@+id/menuRecipeDelete"
         android:title="Delete" />
+    <item
+        android:id="@+id/menuRecipePublish"
+        android:title="Publish" />
 </menu>

@@ -2,10 +2,7 @@ package com.teambear.goodielist.network
 
 import com.teambear.goodielist.interfaces.IGoodieAPIWorker
 import com.teambear.goodielist.models.Recipe
-import com.teambear.goodielist.network.apitypes.DbRecipe
-import com.teambear.goodielist.network.apitypes.RegisterInfo
-import com.teambear.goodielist.network.apitypes.UserLogin
-import com.teambear.goodielist.network.apitypes.UserToken
+import com.teambear.goodielist.network.apitypes.*
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
@@ -59,14 +56,14 @@ object GoodieAPIWorker : IGoodieAPIWorker {
         return ret
     }
 
-    override suspend fun FetchUserRecipes(token: UUID): List<Recipe>? {
+    override suspend fun FetchUserRecipes(token: UUID, username: String): List<Recipe>? {
         var recipes: MutableList<Recipe>? = null
         try {
-            var entities = GoodieREST.service.FetchUserRecipes(token)
+            val entities = GoodieREST.service.FetchUserRecipes(token, username)
             recipes = mutableListOf()
 
             for (entity in entities) {
-                recipes.add(Json.decodeFromString(entity.json))
+                recipes.add(DbRecipe.toRecipe(entity))
             }
         } catch(ex: Exception) {
             println("User recipe fetch failed: ${ex.message}")
@@ -78,8 +75,8 @@ object GoodieAPIWorker : IGoodieAPIWorker {
     override suspend fun FetchRecipe(token: UUID, id: UUID): Recipe? {
         var recipe: Recipe? = null
         try {
-            var entity = GoodieREST.service.FetchRecipe(token, id)
-            recipe = Json.decodeFromString(entity.json)
+            val entity = GoodieREST.service.FetchRecipe(token, id)
+            recipe = DbRecipe.toRecipe(entity)
         } catch(ex: Exception) {
             println("User recipe id=${id} fetch failed: ${ex.message}")
         }
@@ -94,7 +91,7 @@ object GoodieAPIWorker : IGoodieAPIWorker {
 
             recipes = mutableListOf()
             for (entity in entities) {
-                recipes.add(Json.decodeFromString(entity.json))
+                recipes.add(DbRecipe.toRecipe(entity))
             }
         } catch(ex: Exception) {
             println("User recent recipe fetch failed: ${ex.message}")
@@ -106,13 +103,8 @@ object GoodieAPIWorker : IGoodieAPIWorker {
     override suspend fun CreateRecipe(token: UUID, recipe: Recipe): Boolean {
         var ret = false
         try {
-            val entity = DbRecipe(
-                recipe.id,
-                recipe.username,
-                Json.encodeToString(recipe)
-            )
-
-            GoodieREST.service.CreateRecipe(token, recipe.id, entity)
+            val dbRecipe = DbRecipe.fromRecipe(recipe)
+            GoodieREST.service.CreateRecipe(token, dbRecipe.id, RecipeUpdateInfo(dbRecipe.created, dbRecipe.json))
             ret = true
         } catch(ex: Exception) {
             println("Creating recipe id=${recipe.id} failed: ${ex.message}")
@@ -124,16 +116,23 @@ object GoodieAPIWorker : IGoodieAPIWorker {
     override suspend fun UpdateRecipe(token: UUID, recipe: Recipe): Boolean {
         var ret = false
         try {
-            val entity = DbRecipe(
-                recipe.id,
-                recipe.username,
-                Json.encodeToString(recipe)
-            )
-
-            GoodieREST.service.UpdateRecipe(token, recipe.id, entity)
+            val dbRecipe = DbRecipe.fromRecipe(recipe)
+            GoodieREST.service.UpdateRecipe(token, dbRecipe.id,  RecipeUpdateInfo(dbRecipe.created, dbRecipe.json))
             ret = true
         } catch(ex: Exception) {
             println("Updating recipe id=${recipe.id} failed: ${ex.message}")
+        }
+
+        return ret
+    }
+
+    override suspend fun DeleteRecipe(token: UUID, recipeId: UUID): Boolean {
+        var ret = false
+        try {
+            GoodieREST.service.DeleteRecipe(token, recipeId)
+            ret = true
+        } catch(ex: Exception) {
+            println("Deleting recipe id=${recipeId} failed: ${ex.message}")
         }
 
         return ret

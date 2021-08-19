@@ -15,5 +15,9 @@ namespace GoodyAPI.Services.Interfaces
         public RecipeModel FetchRecipeById(Guid identifier);
 
         public List<RecipeModel> FetchRecentRecipes(int count);
+        
+        public bool InsertRecipeById(Guid recipeId, string username, long created, string json);
+
+        public bool DeleteRecipeById(Guid recipeId, string sessionUsername);
     }
 }

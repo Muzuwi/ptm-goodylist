@@ -14,12 +14,9 @@ data class ParcelRecipe (
 
     var username: String,
 
-    @Serializable(with = DateSerializer::class)
-    var created: Date,
+    var created: Long,
 
     var name: String,
-
-    var category: RecipeCategory,
 
     var tags: List<String>,
 
@@ -35,7 +32,6 @@ data class ParcelRecipe (
         newRecipe.username,
         newRecipe.created,
         newRecipe.name,
-        newRecipe.category,
         newRecipe.tags,
         newRecipe.ingredients,
         newRecipe.description,
@@ -50,7 +46,6 @@ data class ParcelRecipe (
                 parcel.username,
                 parcel.created,
                 parcel.name,
-                parcel.category,
                 parcel.tags,
                 parcel.ingredients,
                 parcel.description,

@@ -77,7 +77,7 @@ namespace GoodyAPI.Services
             conn.Open();
             try
             {
-                using var command = new NpgsqlCommand("SELECT * FROM Recipes r WHERE r.id = $id;", conn);
+                using var command = new NpgsqlCommand("SELECT * FROM Recipes r WHERE r.id = @id;", conn);
                 command.Parameters.AddWithValue("id", identifier);
                 var reader = command.ExecuteReader();
                 if (reader.Read())
@@ -86,7 +86,8 @@ namespace GoodyAPI.Services
 
                     recipe.Id = reader.GetGuid(0);
                     recipe.Username = reader.GetString(1);
-                    recipe.Json = reader.GetString(2);
+                    recipe.Created = reader.GetInt64(2);
+                    recipe.Json = reader.GetString(3);
 
                     return recipe;
                 }
@@ -106,7 +107,7 @@ namespace GoodyAPI.Services
             conn.Open();
             try
             {
-                using var command = new NpgsqlCommand("SELECT * FROM Recipes r WHERE r.username = $username;", conn);
+                using var command = new NpgsqlCommand("SELECT * FROM Recipes r WHERE r.username = @username;", conn);
                 command.Parameters.AddWithValue("username", username);
                 var reader = command.ExecuteReader();
                 List<RecipeModel> list = new List<RecipeModel>();
@@ -116,7 +117,8 @@ namespace GoodyAPI.Services
 
                     recipe.Id = reader.GetGuid(0);
                     recipe.Username = reader.GetString(1);
-                    recipe.Json = reader.GetString(2);
+                    recipe.Created = reader.GetInt64(2);
+                    recipe.Json = reader.GetString(3);
 
                     list.Add(recipe);
                 }
@@ -141,10 +143,11 @@ namespace GoodyAPI.Services
                 using var command = new NpgsqlCommand(@"
                     SELECT *
                     FROM Recipes r
-                    ORDER BY CAST(r.contents->>'created' AS DATE) DESC
-                    LIMIT 100;
+                    ORDER BY to_timestamp(r.created)::date DESC
+                    LIMIT @count;
                 ", conn);
                 command.Parameters.AddWithValue("count", count);
+                
                 var reader = command.ExecuteReader();
                 List<RecipeModel> list = new List<RecipeModel>();
                 while (reader.Read())
@@ -153,7 +156,8 @@ namespace GoodyAPI.Services
 
                     recipe.Id = reader.GetGuid(0);
                     recipe.Username = reader.GetString(1);
-                    recipe.Json = reader.GetString(2);
+                    recipe.Created = reader.GetInt64(2);
+                    recipe.Json = reader.GetString(3);
 
                     list.Add(recipe);
                 }
@@ -166,6 +170,63 @@ namespace GoodyAPI.Services
             }
 
             return null;
+        }
+
+
+        public bool InsertRecipeById(Guid recipeId, string username, long created, string json)
+        {
+            using var conn = new NpgsqlConnection(ConnectionString);
+            conn.Open();
+            try
+            {
+                using var command = new NpgsqlCommand("SELECT RecipeInsert(@id, @username, @created, @json)", conn);
+                command.Parameters.AddWithValue("id", recipeId);
+                command.Parameters.AddWithValue("username", username);
+                command.Parameters.AddWithValue("created", created);
+                command.Parameters.AddWithValue("json", json);
+
+                var reader = command.ExecuteReader();
+                var ret = false;
+                if (reader.Read())
+                {
+                    ret = reader.GetBoolean(0);
+                }
+
+                return ret;
+            }
+            catch (Exception ex)
+            {
+                _logger.Log(LogLevel.Error,$"Caught db exception: {ex.Message}");
+            }
+
+            return false;
+        }
+
+        public bool DeleteRecipeById(Guid recipeId, string sessionUsername)
+        {
+            using var conn = new NpgsqlConnection(ConnectionString);
+            conn.Open();
+            try
+            {
+                using var command = new NpgsqlCommand("SELECT RecipeDelete(@id, @username)", conn);
+                command.Parameters.AddWithValue("id", recipeId);
+                command.Parameters.AddWithValue("username", sessionUsername);
+
+                var reader = command.ExecuteReader();
+                var ret = false;
+                if (reader.Read())
+                {
+                    ret = reader.GetBoolean(0);
+                }
+
+                return ret;
+            }
+            catch (Exception ex)
+            {
+                _logger.Log(LogLevel.Error,$"Caught db exception: {ex.Message}");
+            }
+
+            return false;
         }
     }
 }

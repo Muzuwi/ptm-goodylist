@@ -15,6 +15,7 @@ import com.teambear.goodielist.adapters.DisplayTextViewListAdapter
 import java.text.SimpleDateFormat
 import android.text.method.ScrollingMovementMethod
 import com.teambear.goodielist.models.ParcelRecipe
+import java.util.*
 
 
 class RecipeViewFragment : Fragment() {
@@ -70,8 +71,8 @@ class RecipeViewFragment : Fragment() {
 
 
         //Recipe created date
-        val simpleDateFormat = SimpleDateFormat("dd-MM-yyyy")
-        view.findViewById<TextView>(R.id.DetailsCreated).text = simpleDateFormat.format(recipe.created)
+        val dateTime = SimpleDateFormat.getDateTimeInstance()
+        view.findViewById<TextView>(R.id.DetailsCreated).text = dateTime.format(Date(recipe.created * 1000L))
 
         //List of tags
         val tagList = view.findViewById<RecyclerView>(R.id.detailsTagList)

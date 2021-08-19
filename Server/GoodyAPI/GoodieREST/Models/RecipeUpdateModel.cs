@@ -3,17 +3,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace GoodyAPI.Models
 {
-    public class RecipeModel
+    public class RecipeUpdateModel
     {
         [Required]
-        public Guid Id { get; set; }
-
-        [Required]
-        public string Username { get; set; }
-        
-        [Required]
         public long Created { get; set; }
-
+        
         [Required]
         public string Json { get; set; }
     }

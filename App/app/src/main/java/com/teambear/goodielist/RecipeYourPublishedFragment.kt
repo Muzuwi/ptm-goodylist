@@ -22,7 +22,7 @@ import com.teambear.goodielist.storage.LocalRecipes
 import com.teambear.goodielist.workers.DummyRecipeListViewer
 import kotlinx.coroutines.launch
 
-class RecipeOnlineListFragment : Fragment(), IRecipeClickListener, IRecipeListViewer {
+class RecipeYourPublishedFragment : Fragment(), IRecipeClickListener, IRecipeListViewer {
     private lateinit var binding: FragmentRecipeOnlineListBinding
     private var recipes: List<Recipe> = listOf()
 
@@ -62,7 +62,7 @@ class RecipeOnlineListFragment : Fragment(), IRecipeClickListener, IRecipeListVi
             return
         }
 
-        val recipes = GoodieAPIWorker.FetchRecentRecipes(user.token)
+        val recipes = GoodieAPIWorker.FetchUserRecipes(user.token, user.username)
         recipes ?: run {
             binding.onlineRecipeListContainer.isRefreshing = false
             binding.noRecipesOnlineText.isVisible = true

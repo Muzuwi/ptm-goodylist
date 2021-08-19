@@ -1,7 +1,6 @@
 package com.teambear.goodielist
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.navigation.findNavController
 import com.teambear.goodielist.models.Recipe
-import com.teambear.goodielist.models.RecipeCategory
 import com.teambear.goodielist.storage.LocalRecipes
 import java.util.*
 import androidx.navigation.fragment.navArgs
@@ -99,9 +97,8 @@ class FragmentRecipeEdit : Fragment(), IRecipeEditViewCreated {
         return Recipe(
             uuid,
             username,
-            Calendar.getInstance().time,
+            System.currentTimeMillis() / 1000L,
             name,
-            RecipeCategory.BREAKFAST,
             tags,
             ingredients,
             description,

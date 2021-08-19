@@ -11,6 +11,7 @@ import android.widget.PopupMenu
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,9 +22,12 @@ import com.teambear.goodielist.databinding.FragmentHomeBinding
 import com.teambear.goodielist.interfaces.IRecipeClickListener
 import com.teambear.goodielist.models.ParcelRecipe
 import com.teambear.goodielist.models.Recipe
+import com.teambear.goodielist.network.GoodieAPIWorker
+import com.teambear.goodielist.network.UserAccount
 import com.teambear.goodielist.storage.LocalRecipes
 import com.teambear.goodielist.viewmodels.HomeViewModel
 import com.teambear.goodielist.workers.DummyRecipeListViewer
+import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment(), IRecipeClickListener {
 
@@ -110,6 +114,21 @@ class HomeFragment : Fragment(), IRecipeClickListener {
                     ((requireView().findViewById(R.id.homeRecipeList) as RecyclerView).adapter as RecipeListAdapter).notifyDataSetChanged()
                 } else {
                     Snackbar.make(requireView(), "Could not delete recipe", Snackbar.LENGTH_SHORT).show()
+                }
+            } else if(it.itemId == R.id.menuRecipePublish) {
+                lifecycleScope.launch {
+                    val user = UserAccount.GetLocalUser() ?: return@launch
+                    user.token ?: return@launch
+
+                    Snackbar.make(requireView(), "Uploading recipe..", Snackbar.LENGTH_INDEFINITE).show()
+
+                    val ret = GoodieAPIWorker.CreateRecipe(user.token, recipe)
+                    if(ret) {
+                        Snackbar.make(requireView(), "Recipe published successfully", Snackbar.LENGTH_SHORT).show()
+                    } else {
+                        Snackbar.make(requireView(), "Failed to publish recipe", Snackbar.LENGTH_SHORT).show()
+                    }
+
                 }
             }
 

@@ -23,17 +23,16 @@ namespace GoodyAPI.Controllers
         }
 
         [HttpGet]
-        [Route("id/{token}")]
-        public ActionResult GetById([FromHeader(Name = "X-User-Token")] Guid userToken, Guid recipeId)
+        [Route("id/{token:guid}")]
+        public ActionResult GetById([FromHeader(Name = "X-User-Token")] Guid userToken, Guid token)
         {
-            _logger.Log(LogLevel.Information,userToken.ToString());
             var session = SessionManager.GetSessionFor(userToken);
             if (session == null)
             {
                 return StatusCode(403);
             }
 
-            var recipe = _dbWorkerService.FetchRecipeById(recipeId);
+            var recipe = _dbWorkerService.FetchRecipeById(token);
             if (recipe != null)
             {
                 return Ok(recipe);
@@ -42,11 +41,49 @@ namespace GoodyAPI.Controllers
             return NotFound();
         }
 
+        [HttpPost]
+        [Route("id/{recipeId:guid}")]
+        public ActionResult PostById([FromHeader(Name = "X-User-Token")] Guid userToken, Guid recipeId, [FromBody] RecipeUpdateModel updateModel)
+        {
+            var session = SessionManager.GetSessionFor(userToken);
+            if (session == null)
+            {
+                return StatusCode(403);
+            }
+
+            var ret = _dbWorkerService.InsertRecipeById(recipeId, session.Username, updateModel.Created, updateModel.Json);
+            if (!ret)
+            {
+                return BadRequest();    
+            }
+
+            return Ok();
+        }
+
+        [HttpDelete]
+        [Route("id/{recipeId:guid}")]
+        public ActionResult DeleteById([FromHeader(Name = "X-User-Token")] Guid userToken, Guid recipeId)
+        {            
+            var session = SessionManager.GetSessionFor(userToken);
+            if (session == null)
+            {
+                return StatusCode(403);
+            }
+            
+            var ret = _dbWorkerService.DeleteRecipeById(recipeId, session.Username);
+            if (!ret)
+            {
+                return BadRequest();    
+            }
+
+            return Ok();
+        }
+        
+
         [HttpGet]
         [Route("new")]
         public ActionResult GetByNew([FromHeader(Name = "X-User-Token")] Guid userToken)
         {
-            _logger.Log(LogLevel.Information,userToken.ToString());
             var session = SessionManager.GetSessionFor(userToken);
             if (session == null)
             {
@@ -64,12 +101,22 @@ namespace GoodyAPI.Controllers
         }
         
         [HttpGet]
-        [Route("user")]
-        public ActionResult GetByUser([FromHeader(Name = "X-User-Token")] Guid userToken)
+        [Route("user/{username}")]
+        public ActionResult GetByUser([FromHeader(Name = "X-User-Token")] Guid userToken, string username)
         {
-            _logger.Log(LogLevel.Information,userToken.ToString());
+            var session = SessionManager.GetSessionFor(userToken);
+            if (session == null)
+            {
+                return StatusCode(403);
+            }
 
-            return Ok();
+            var recipes = _dbWorkerService.FetchUserRecipes(username);
+            if (recipes != null)
+            {
+                return Ok(recipes);
+            }
+            
+            return BadRequest();
         }
         
     }
