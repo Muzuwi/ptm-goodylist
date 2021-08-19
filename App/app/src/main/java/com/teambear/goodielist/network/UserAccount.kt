@@ -53,6 +53,17 @@ object UserAccount {
         return true
     }
 
+    fun ClearLocalUser() {
+        val prefs = appContext.getSharedPreferences("userData", Context.MODE_PRIVATE) ?: return
+        val edit = prefs.edit()
+
+        edit.putString("username", null)
+        edit.putString("token", null)
+        edit.apply()
+
+        localUser = null
+    }
+
     fun GetLocalUser(): User? {
         return localUser
     }

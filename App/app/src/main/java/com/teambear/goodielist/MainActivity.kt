@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.View
+import android.widget.Button
 import android.widget.TextView
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
@@ -14,10 +15,13 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.teambear.goodielist.databinding.MainActivityBinding
 import com.teambear.goodielist.network.GoodieAPIWorker
 import com.teambear.goodielist.network.UserAccount
 import com.teambear.goodielist.storage.LocalRecipes
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import java.util.*
 
@@ -136,6 +140,19 @@ class MainActivity : AppCompatActivity() {
             logInString = "Logged in as ${localUser.username}"
         }
         binding.navView.getHeaderView(0).findViewById<TextView>(R.id.main_nav_logged_as).text = logInString
+        binding.navView.getHeaderView(0).findViewById<Button>(R.id.buttonLogout).setOnClickListener {
+            lifecycleScope.launch {
+                val user = UserAccount.GetLocalUser()
+                if(user?.token != null) {
+                    GoodieAPIWorker.Logout(user.token)
+                }
+                UserAccount.ClearLocalUser()
+                val intent = Intent(app, LogInActivity::class.java)
+                startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(app).toBundle())
+                finish()
+            }
+        }
+
 
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView

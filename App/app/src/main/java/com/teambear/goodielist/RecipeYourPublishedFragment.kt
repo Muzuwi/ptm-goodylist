@@ -83,8 +83,8 @@ class RecipeYourPublishedFragment : Fragment(), IRecipeClickListener, IRecipeLis
 
     override fun OnRecipeClick(recipe: Recipe) {
         val nav = findNavController()
-        val dirs = RecipeOnlineListFragmentDirections
-            .actionRecipeOnlineListFragmentToRecipeViewFragment(ParcelRecipe(recipe))
+        val dirs = RecipeYourPublishedFragmentDirections
+            .actionRecipeYourPublishedFragmentToRecipeViewFragment(ParcelRecipe(recipe))
         nav.navigate(dirs)
     }
 

@@ -54,7 +54,7 @@
     <fragment
         android:id="@+id/recipeYourPublishedFragment"
         android:name="com.teambear.goodielist.RecipeYourPublishedFragment"
-        android:label="RecipeYourPublishedFragment" >
+        android:label="Your published recipes" >
         <action
             android:id="@+id/action_recipeYourPublishedFragment_to_recipeViewFragment"
             app:destination="@id/recipeViewFragment" />
