@@ -9,6 +9,7 @@ import android.widget.PopupMenu
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.teambear.goodielist.adapters.RecipeListAdapter
@@ -23,9 +24,10 @@ import com.teambear.goodielist.storage.LocalRecipes
 import com.teambear.goodielist.workers.DummyRecipeListViewer
 import kotlinx.coroutines.launch
 
-class RecipeYourPublishedFragment : Fragment(), IRecipeClickListener, IRecipeListViewer {
+class RecipeViewUserRecipesFragment : Fragment(), IRecipeClickListener, IRecipeListViewer {
     private lateinit var binding: FragmentRecipeOnlineListBinding
     private var recipes: List<Recipe> = listOf()
+    private val args: RecipeViewUserRecipesFragmentArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +39,8 @@ class RecipeYourPublishedFragment : Fragment(), IRecipeClickListener, IRecipeLis
     ): View? {
         val view = inflater.inflate(R.layout.fragment_recipe_online_list, container, false)
         binding = FragmentRecipeOnlineListBinding.bind(view)
+
+        (requireActivity() as MainActivity).SetActionBarTitle("Recipes by ${args.username}")
 
         binding.noRecipesOnlineText.isVisible = false
         binding.onlineRecipeList.layoutManager = LinearLayoutManager(view.context)
@@ -63,7 +67,7 @@ class RecipeYourPublishedFragment : Fragment(), IRecipeClickListener, IRecipeLis
             return
         }
 
-        val recipes = GoodieAPIWorker.FetchUserRecipes(user.token, user.username)
+        val recipes = GoodieAPIWorker.FetchUserRecipes(user.token, args.username)
         recipes ?: run {
             binding.onlineRecipeListContainer.isRefreshing = false
             binding.noRecipesOnlineText.isVisible = true
@@ -84,8 +88,8 @@ class RecipeYourPublishedFragment : Fragment(), IRecipeClickListener, IRecipeLis
 
     override fun OnRecipeClick(recipe: Recipe) {
         val nav = findNavController()
-        val dirs = RecipeYourPublishedFragmentDirections
-            .actionRecipeYourPublishedFragmentToRecipeViewFragment(ParcelRecipe(recipe))
+        val dirs = RecipeViewUserRecipesFragmentDirections
+            .actionRecipeViewUserRecipesFragmentToRecipeViewFragment(ParcelRecipe(recipe))
         nav.navigate(dirs)
     }
 
@@ -94,6 +98,9 @@ class RecipeYourPublishedFragment : Fragment(), IRecipeClickListener, IRecipeLis
         val pop = PopupMenu(requireContext(), view)
         pop.inflate(R.menu.recipe_online_context)
 
+        if(user != null) {
+            pop.menu.findItem(R.id.menuRecipeOnlineDelete).isVisible = (user.username == recipe.username)
+        }
         pop.menu.findItem(R.id.menuRecipeViewUser).isVisible = false
 
         pop.setOnMenuItemClickListener {

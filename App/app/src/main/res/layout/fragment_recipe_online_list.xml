@@ -23,6 +23,7 @@
             android:id="@+id/onlineRecipeListContainer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@drawable/tag_frame"
             tools:layout_conversion_absoluteHeight="0dp"
             tools:layout_conversion_absoluteWidth="0dp">
 

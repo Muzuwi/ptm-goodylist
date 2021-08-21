@@ -1,14 +1,17 @@
 package com.teambear.goodielist
 
 import android.os.Bundle
+import android.os.ParcelUuid
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.teambear.goodielist.adapters.RecipeListAdapter
 import com.teambear.goodielist.databinding.FragmentRecipeOnlineListBinding
@@ -89,18 +92,46 @@ class RecipeOnlineListFragment : Fragment(), IRecipeClickListener, IRecipeListVi
     }
 
     override fun OnRecipeLongClick(view: View, recipe: Recipe) {
-        Snackbar.make(view, "Deleting recipe..", Snackbar.LENGTH_SHORT).show()
-        lifecycleScope.launch {
-            val user = UserAccount.GetLocalUser() ?: return@launch
-            user.token ?: return@launch
+        val user = UserAccount.GetLocalUser()
+        val pop = PopupMenu(requireContext(), view)
+        pop.inflate(R.menu.recipe_online_context)
 
-            val ret = GoodieAPIWorker.DeleteRecipe(user.token, recipe.id)
-            if(ret) {
-                Snackbar.make(view, "Recipe removed successfully", Snackbar.LENGTH_SHORT).show()
-            } else {
-                Snackbar.make(view, "Failed to remove recipe", Snackbar.LENGTH_SHORT).show()
-            }
+        if(user != null) {
+            pop.menu.findItem(R.id.menuRecipeOnlineDelete).isVisible = (user.username == recipe.username)
         }
+        pop.menu.findItem(R.id.menuRecipeViewUser).title = "${recipe.username}'s recipes"
+
+        pop.setOnMenuItemClickListener {
+            if(it.itemId == R.id.menuRecipeOnlineDelete) {
+                lifecycleScope.launch {
+                    user ?: return@launch
+                    user.token ?: return@launch
+
+                    val ret = GoodieAPIWorker.DeleteRecipe(user.token, recipe.id)
+                    if(ret) {
+                        Snackbar.make(view, "Recipe removed successfully", Snackbar.LENGTH_SHORT).show()
+                    } else {
+                        Snackbar.make(view, "Failed to remove recipe", Snackbar.LENGTH_SHORT).show()
+                    }
+                }
+            } else if(it.itemId == R.id.menuRecipeViewUser) {
+                val nav = findNavController()
+                val dirs = RecipeOnlineListFragmentDirections
+                    .actionRecipeOnlineListFragmentToRecipeViewUserRecipesFragment(recipe.username)
+                nav.navigate(dirs)
+            } else if(it.itemId == R.id.menuRecipeSaveOffline) {
+                val ret = LocalRecipes.InsertRecipe(recipe)
+                if(ret) {
+                    Snackbar.make(requireView(), "Saved recipe", Snackbar.LENGTH_SHORT).show()
+                } else {
+                    Snackbar.make(requireView(), "This recipe is already saved locally", Snackbar.LENGTH_SHORT).show()
+                }
+            }
+
+            return@setOnMenuItemClickListener true
+        }
+
+        pop.show()
     }
 
     override fun GetItemCount(): Int {

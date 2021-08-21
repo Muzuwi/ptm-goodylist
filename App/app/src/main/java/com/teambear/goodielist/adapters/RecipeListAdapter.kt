@@ -56,7 +56,7 @@ class RecipeListAdapter(
 
         fun BindFromRecipe(recipe: Recipe) {
             nameView.text = recipe.name
-            userView.text = recipe.username
+            userView.text = "Created by " + recipe.username
 
             val dateTime = SimpleDateFormat.getDateTimeInstance()
             dateView.text = dateTime.format(Date(recipe.created * 1000L))

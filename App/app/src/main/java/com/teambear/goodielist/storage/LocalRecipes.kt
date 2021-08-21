@@ -6,6 +6,7 @@ import com.teambear.goodielist.models.Recipe
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import java.lang.Exception
 import java.util.*
 import kotlin.collections.HashMap
 
@@ -93,7 +94,12 @@ object LocalRecipes : IUserRecipeWorker {
     private fun InsertLocalRecipe(newRecipe: Recipe): Boolean {
         val entity = RecipeEntity.fromRecipe(newRecipe)
 
-        database.recipeDao().InsertEntity(entity)
+        try {
+            database.recipeDao().InsertEntity(entity)
+        } catch (ex: Exception) {
+            return false
+        }
+
         return true
     }
 

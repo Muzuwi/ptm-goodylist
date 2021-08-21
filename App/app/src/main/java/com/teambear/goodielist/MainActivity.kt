@@ -184,4 +184,8 @@ class MainActivity : AppCompatActivity() {
         nav.navigate(R.id.recipeListFragment_to_fragmentRecipeEdit);
     }
 
+    fun SetActionBarTitle(title: String) {
+        binding.appBarMain.toolbar.title = title
+    }
+
 }

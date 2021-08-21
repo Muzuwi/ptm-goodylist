@@ -5,52 +5,79 @@
     android:id="@+id/recipeItemContainer"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="10dp"
-    android:layout_marginTop="5dp"
-    android:layout_marginRight="10dp"
-    android:layout_marginBottom="5dp"
-    android:background="@drawable/tag_frame"
-    android:backgroundTint="#FFFFFF"
-    android:clickable="true"
+    android:layout_marginLeft="0dp"
+    android:layout_marginTop="0dp"
+    android:layout_marginRight="0dp"
+    android:layout_marginBottom="0dp"
+    android:background="?android:attr/selectableItemBackground"
     android:focusable="true"
-    android:padding="16dp">
+    android:padding="0dp">
 
-    <TextView
-        android:id="@+id/ListItemName"
-        android:layout_width="wrap_content"
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="Recipe #1"
-        android:textAppearance="?attr/textAppearanceListItem"
-        android:textSize="20sp"
-        app:layout_constraintStart_toEndOf="@+id/ListItemIcon"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/ListItemUser"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="dummyUser"
-        android:textAppearance="?attr/textAppearanceListItem"
-        app:layout_constraintStart_toEndOf="@+id/ListItemIcon"
-        app:layout_constraintTop_toBottomOf="@+id/ListItemName" />
-
-    <ImageView
-        android:id="@+id/ListItemIcon"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:background="#80FFFFFF"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/icon_unknown" />
-
-    <TextView
-        android:id="@+id/ListItemDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="01.01.1970"
+        android:alpha="100"
+        android:paddingTop="0dp"
+        android:paddingBottom="20dp"
+        app:cardBackgroundColor="#FFFFFF"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="3dp"
+        app:cardPreventCornerOverlap="true"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp">
+
+            <ImageView
+                android:id="@+id/ListItemIcon"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_marginStart="8dp"
+                android:background="#80FFFFFF"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/icon_unknown" />
+
+            <TextView
+                android:id="@+id/ListItemUser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="dummyUser"
+                android:textAppearance="?attr/textAppearanceListItem"
+                app:layout_constraintBottom_toBottomOf="@+id/ListItemIcon"
+                app:layout_constraintStart_toEndOf="@+id/ListItemIcon"
+                app:layout_constraintTop_toBottomOf="@+id/ListItemName" />
+
+            <TextView
+                android:id="@+id/ListItemName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="Recipe #1"
+                android:textAppearance="?attr/textAppearanceListItem"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toTopOf="@+id/ListItemUser"
+                app:layout_constraintStart_toEndOf="@+id/ListItemIcon"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/ListItemDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:text="01.01.1970"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ListItemIcon" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

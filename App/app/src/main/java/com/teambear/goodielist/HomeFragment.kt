@@ -96,6 +96,13 @@ class HomeFragment : Fragment(), IRecipeClickListener {
     override fun OnRecipeLongClick(view: View, recipe: Recipe) {
         val pop = PopupMenu(requireContext(), view)
         pop.inflate(R.menu.recipe_context)
+
+        val user = UserAccount.GetLocalUser()
+        if(user != null) {
+            pop.menu.findItem(R.id.menuRecipeEdit).isVisible = (user.username == recipe.username)
+            pop.menu.findItem(R.id.menuRecipePublish).isVisible = (user.username == recipe.username)
+        }
+
         pop.setOnMenuItemClickListener {
             if(it.itemId == R.id.menuRecipeEdit) {
                 System.out.println("Editing recipe id=" + recipe.id.toString());
@@ -117,7 +124,7 @@ class HomeFragment : Fragment(), IRecipeClickListener {
                 }
             } else if(it.itemId == R.id.menuRecipePublish) {
                 lifecycleScope.launch {
-                    val user = UserAccount.GetLocalUser() ?: return@launch
+                    user ?: return@launch
                     user.token ?: return@launch
 
                     Snackbar.make(requireView(), "Uploading recipe..", Snackbar.LENGTH_INDEFINITE).show()
